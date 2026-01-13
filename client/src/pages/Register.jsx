@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/api";
 
 function Register() {
@@ -21,7 +21,7 @@ function Register() {
       alert("Registration successful. Please login.");
       navigate("/login");
     } catch (err) {
-      console.error("Register failed:", err.response?.data || err.message);
+      console.error("Registration failed:", err.response?.data || err.message);
       alert("Registration failed");
     }
   };
@@ -56,6 +56,11 @@ function Register() {
 
         <button type="submit">Register</button>
       </form>
+
+      <p>
+        Already have an account?{" "}
+        <Link to="/login">Login</Link>
+      </p>
     </div>
   );
 }
