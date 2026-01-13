@@ -13,57 +13,60 @@ function Dashboard() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  // 🔐 Auth check + initial data load
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       navigate("/login");
       return;
     }
-
     fetchTrips();
   }, [navigate]);
 
   const fetchTrips = async () => {
-    try {
-      const res = await api.get("/trips");
-      setTrips(res.data);
-    } catch (err) {
-      console.error("Failed to fetch trips", err);
-    }
+    const res = await api.get("/trips");
+    setTrips(res.data);
   };
 
   const createTrip = async (e) => {
     e.preventDefault();
 
-    try {
-      await api.post("/trips", {
-        title,
-        budget,
-        start_date: startDate,
-        end_date: endDate,
-      });
+    await api.post("/trips", {
+      title,
+      budget,
+      start_date: startDate,
+      end_date: endDate,
+    });
 
-      setTitle("");
-      setBudget("");
-      setStartDate("");
-      setEndDate("");
+    setTitle("");
+    setBudget("");
+    setStartDate("");
+    setEndDate("");
 
-      fetchTrips();
-    } catch (err) {
-      console.error("Failed to create trip", err);
-    }
+    fetchTrips();
   };
 
   return (
     <>
       <Navbar />
 
-      <div style={{ padding: "20px" }}>
-        <h2>Your Trips</h2>
+      <div
+        style={{
+          padding: "24px",
+          maxWidth: "800px",
+          margin: "0 auto",
+        }}
+      >
+        <h2 style={{ marginBottom: "16px" }}>Your Trips</h2>
 
-        <form onSubmit={createTrip}>
+        <form
+          onSubmit={createTrip}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            marginBottom: "24px",
+          }}
+        >
           <input
             placeholder="Trip title"
             value={title}
@@ -96,15 +99,11 @@ function Dashboard() {
           <button>Create Trip</button>
         </form>
 
-        <div style={{ marginTop: "20px" }}>
-          {trips.length === 0 ? (
-            <p>No trips yet</p>
-          ) : (
-            trips.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
-            ))
-          )}
-        </div>
+        {trips.length === 0 ? (
+          <p>No trips yet</p>
+        ) : (
+          trips.map((trip) => <TripCard key={trip.id} trip={trip} />)
+        )}
       </div>
     </>
   );

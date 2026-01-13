@@ -5,19 +5,18 @@ function TripCard({ trip }) {
 
   return (
     <div
-      onClick={() => navigate(`/trip/${trip.id}`)}
+      onClick={() => navigate(`/trips/${trip.id}`)}
       style={{
-        border: "1px solid #ccc",
-        padding: "12px",
-        marginBottom: "10px",
+        padding: "16px",
+        borderRadius: "8px",
+        border: "1px solid #ddd",
+        background: "#fff",
+        marginBottom: "12px",
         cursor: "pointer",
       }}
     >
-      <h3>{trip.title}</h3>
+      <h3 style={{ marginBottom: "6px" }}>{trip.title}</h3>
       <p>Budget: ₹{trip.budget}</p>
-      <p>
-        {trip.start_date} → {trip.end_date}
-      </p>
     </div>
   );
 }

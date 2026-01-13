@@ -9,7 +9,17 @@ function Navbar() {
   };
 
   return (
-    <nav style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
+    <nav
+      style={{
+        padding: "14px 20px",
+        borderBottom: "1px solid #e0e0e0",
+        background: "#ffffff",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <strong style={{ fontSize: "18px" }}>TravelMint</strong>
       <button onClick={logout}>Logout</button>
     </nav>
   );
