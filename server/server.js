@@ -32,4 +32,9 @@ app.get("/", (req, res) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
+// health check
+app.get("/", (req, res) => {
+  res.send("TravelMint API is running 🚀");
+});
+
 export default app;
