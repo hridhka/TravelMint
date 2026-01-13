@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/api";
 
 function Login() {
@@ -16,12 +16,9 @@ function Login() {
         password,
       });
 
-      // 🔥 PROOF LOG — DO NOT REMOVE YET
       console.log("LOGIN RESPONSE:", res.data);
 
-      // 🔑 SAVE TOKEN
       localStorage.setItem("token", res.data.token);
-
       navigate("/dashboard");
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
@@ -52,6 +49,11 @@ function Login() {
 
         <button type="submit">Login</button>
       </form>
+
+      <p>
+        Don’t have an account?{" "}
+        <Link to="/register">Register</Link>
+      </p>
     </div>
   );
 }
