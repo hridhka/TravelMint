@@ -1,41 +1,22 @@
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
+import pkg from "pg";
+const { Pool } = pkg;
 
-const db = await open({
-  filename: "./travelmint.db",
-  driver: sqlite3.Database,
+const DATABASE_URL =
+  "postgresql://neondb_owner:npg_FYkQ9IVKL1iU@ep-shiny-sunset-ahhda79v-pooler.c-3.us-east-1.aws.neon.tech/neondb";
+
+const pool = new Pool({
+  connectionString: DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 });
 
-await db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT UNIQUE,
-    password TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
+pool
+  .connect()
+  .then(() => {
+    console.log("✅ Connected to PostgreSQL database");
+  })
+  .catch((err) => {
+    console.error("❌ PostgreSQL connection error:", err.message);
+    process.exit(1);
+  });
 
-  CREATE TABLE IF NOT EXISTS trips (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    title TEXT,
-    budget REAL,
-    start_date TEXT,
-    end_date TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS expenses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    trip_id INTEGER,
-    amount REAL,
-    category TEXT,
-    description TEXT,
-    expense_date TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-`);
-
-console.log("SQLite database connected");
-
-export default db;
+export default pool;

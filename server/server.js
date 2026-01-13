@@ -1,27 +1,40 @@
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 🔴 FORCE dotenv to load .env from server folder
+dotenv.config({ path: path.join(__dirname, ".env") });
+
+
 import express from "express";
 import cors from "cors";
 
-// ✅ import routes
+import "./config/db.js";
+
 import authRoutes from "./routes/authRoutes.js";
 import tripRoutes from "./routes/tripRoutes.js";
 import expenseRoutes from "./routes/expenseRoutes.js";
 
 const app = express();
 
-// ✅ middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ USE ROUTES (THIS IS WHERE YOUR CODE GOES)
+app.get("/test", (req, res) => {
+  res.send("TEST OK");
+});
+
 app.use("/api/auth", authRoutes);
+
 app.use("/api/trips", tripRoutes);
 app.use("/api/expenses", expenseRoutes);
 
-// ✅ health check (important for Vercel)
-app.get("/api", (req, res) => {
-  res.send("TravelMint API is running 🚀");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
 
-// ❌ DO NOT use app.listen on Vercel
-
-export default app;

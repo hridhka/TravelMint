@@ -1,10 +1,13 @@
 import express from "express";
-import protect from "../middleware/authMiddleware.js";
-import { addExpense, getExpenses } from "../controllers/expenseController.js";
+import {
+  addExpense,
+  getExpensesByTrip,
+} from "../controllers/expenseController.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", protect, addExpense);
-router.get("/:tripId", protect, getExpenses);
+router.post("/", authMiddleware, addExpense);
+router.get("/:id", authMiddleware, getExpensesByTrip);
 
 export default router;
