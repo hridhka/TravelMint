@@ -5,20 +5,11 @@ function Navbar() {
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
-    <nav
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "12px 20px",
-        borderBottom: "1px solid #ddd",
-      }}
-    >
-      <h3>TravelMint</h3>
+    <nav style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
       <button onClick={logout}>Logout</button>
     </nav>
   );
