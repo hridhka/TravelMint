@@ -1,36 +1,58 @@
-import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// 🔴 FORCE dotenv to load .env from server folder
-dotenv.config({ path: path.join(__dirname, ".env") });
-
-
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 
-import "./config/db.js";
-
+// route imports
 import authRoutes from "./routes/authRoutes.js";
 import tripRoutes from "./routes/tripRoutes.js";
 import expenseRoutes from "./routes/expenseRoutes.js";
 
+// load env variables
+dotenv.config();
+
 const app = express();
 
-app.use(cors({ origin: "*", credentials: true }));
+// ======================
+// MIDDLEWARE
+// ======================
+
+// parse JSON
 app.use(express.json());
+
+// CORS — allow frontend to talk to backend
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://travel-mint-two.vercel.app", 
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// ======================
+// ROUTES
+// ======================
 
 app.use("/api/auth", authRoutes);
 app.use("/api/trips", tripRoutes);
 app.use("/api/expenses", expenseRoutes);
 
+// ======================
+// HEALTH CHECK (OPTIONAL)
+// ======================
+
+app.get("/", (req, res) => {
+  res.send("TravelMint backend is running");
+});
+
+// ======================
+// START SERVER
+// ======================
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
-
