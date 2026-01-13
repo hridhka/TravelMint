@@ -13,34 +13,47 @@ function Dashboard() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-  }
-}, []);
+  // 🔐 Auth check + initial data load
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    fetchTrips();
+  }, [navigate]);
 
   const fetchTrips = async () => {
-    const res = await api.get("/trips");
-    setTrips(res.data);
+    try {
+      const res = await api.get("/trips");
+      setTrips(res.data);
+    } catch (err) {
+      console.error("Failed to fetch trips", err);
+    }
   };
 
   const createTrip = async (e) => {
     e.preventDefault();
 
-    await api.post("/trips", {
-      title,
-      budget,
-      start_date: startDate,
-      end_date: endDate,
-    });
+    try {
+      await api.post("/trips", {
+        title,
+        budget,
+        start_date: startDate,
+        end_date: endDate,
+      });
 
-    setTitle("");
-    setBudget("");
-    setStartDate("");
-    setEndDate("");
+      setTitle("");
+      setBudget("");
+      setStartDate("");
+      setEndDate("");
 
-    fetchTrips();
+      fetchTrips();
+    } catch (err) {
+      console.error("Failed to create trip", err);
+    }
   };
 
   return (
