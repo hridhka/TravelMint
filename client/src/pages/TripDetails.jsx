@@ -49,11 +49,20 @@ function TripDetails() {
     fetchSummary();
   };
 
-  const deleteExpense = async (expenseId) => {
-    await api.delete(`/expenses/${expenseId}`);
+const deleteExpense = async (expenseId) => {
+  console.log("🧨 Deleting expense with id:", expenseId);
+
+  try {
+    const res = await api.delete(`/expenses/${expenseId}`);
+    console.log("DELETE RESPONSE:", res.data);
+
     fetchExpenses();
     fetchSummary();
-  };
+  } catch (err) {
+    console.error("DELETE ERROR:", err.response?.data || err.message);
+  }
+};
+
 
   // 📊 total by category
   const categoryTotals = expenses.reduce((acc, exp) => {
