@@ -20,17 +20,13 @@ import expenseRoutes from "./routes/expenseRoutes.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
-app.get("/test", (req, res) => {
-  res.send("TEST OK");
-});
-
 app.use("/api/auth", authRoutes);
-
 app.use("/api/trips", tripRoutes);
 app.use("/api/expenses", expenseRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 
