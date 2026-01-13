@@ -13,11 +13,12 @@ function Dashboard() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) navigate("/");
-    fetchTrips();
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+  }
+}, []);
 
   const fetchTrips = async () => {
     const res = await api.get("/trips");

@@ -4,12 +4,14 @@ const api = axios.create({
   baseURL: "https://travelmint-backend.onrender.com/api",
 });
 
-
+// 🔐 Attach token on every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
