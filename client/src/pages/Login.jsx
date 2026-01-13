@@ -18,8 +18,12 @@ function Login() {
 
       console.log("LOGIN RESPONSE:", res.data);
 
-      localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        navigate("/dashboard");
+      } else {
+        alert("No token received from server");
+      }
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
       alert("Login failed");
