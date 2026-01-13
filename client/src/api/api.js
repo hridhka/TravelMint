@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: "https://travelmint-backend.onrender.com/api",
 });
 
-// 🔐 Attach token on every request
+// 🔑 ATTACH TOKEN TO EVERY REQUEST
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -14,6 +14,5 @@ api.interceptors.request.use((config) => {
 
   return config;
 });
-
 
 export default api;

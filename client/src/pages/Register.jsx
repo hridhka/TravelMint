@@ -27,10 +27,32 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#f7f7f9",
+      }}
+    >
+      <form
+        onSubmit={handleRegister}
+        style={{
+          width: "320px",
+          padding: "24px",
+          background: "#ffffff",
+          borderRadius: "8px",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "14px",
+        }}
+      >
+        <h2 style={{ textAlign: "center", marginBottom: "8px" }}>
+          Register
+        </h2>
 
-      <form onSubmit={handleRegister}>
         <input
           placeholder="Name"
           value={name}
@@ -55,12 +77,12 @@ function Register() {
         />
 
         <button type="submit">Register</button>
-      </form>
 
-      <p>
-        Already have an account?{" "}
-        <Link to="/login">Login</Link>
-      </p>
+        <p style={{ textAlign: "center", fontSize: "14px" }}>
+          Already have an account?{" "}
+          <Link to="/login">Login</Link>
+        </p>
+      </form>
     </div>
   );
 }

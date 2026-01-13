@@ -19,7 +19,7 @@ function Navbar() {
         alignItems: "center",
       }}
     >
-      <strong style={{ fontSize: "18px" }}>TravelMint</strong>
+      <strong style={{ fontSize: "25px", fontWeight: "750" }}>TravelMint</strong>
       <button onClick={logout}>Logout</button>
     </nav>
   );
