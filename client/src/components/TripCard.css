@@ -2,49 +2,89 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 16px 20px;
+  padding: 14px 18px;
   margin-bottom: 14px;
-
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-
+  border-radius: 14px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
+
+  color: #fcfefe;
+
+  background: linear-gradient(
+      rgba(18, 17, 17, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
+    url("https://source.unsplash.com/900x400/?travel,landscape");
+
+  background-size: cover;
+  background-position: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .trip-card:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* LEFT */
 .trip-info h3 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.trip-budget {
   margin: 0;
-  font-size: 18px;
-}
-
-.trip-info .budget {
-  margin: 4px 0;
-  color: #374151;
   font-size: 14px;
+  opacity: 0.95;
 }
 
-.trip-info .dates {
+.trip-dates {
+  margin-top: 6px;
   font-size: 13px;
-  color: #6b7280;
+  opacity: 0.85;
 }
 
-.trip-delete-btn {
-  background: transparent;
+/* RIGHT */
+.trip-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* BUTTONS */
+.delete-btn {
+  background: rgba(62, 54, 54, 0.95);
+  color: #fff;
   border: none;
-  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
   cursor: pointer;
-  color: #dc2626;
-  padding: 8px;
-  border-radius: 6px;
+  font-size: 13px;
 }
 
-.trip-delete-btn:hover {
-  background: #fee2e2;
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+.confirm-box {
+  display: flex;
+  gap: 8px;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  color: #111;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  background: #080808;
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
 }

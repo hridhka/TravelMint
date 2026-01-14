@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import Navbar from "../components/Navbar";
 import TripCard from "../components/TripCard";
+import "./Dashboard.css";
 
 function Dashboard() {
   const [trips, setTrips] = useState([]);
@@ -45,8 +46,43 @@ function Dashboard() {
     <>
       <Navbar />
 
-      <div style={{ maxWidth: "700px", margin: "0 auto", padding: "20px" }}>
+      <div
+  style={{
+    maxWidth: "1100px",
+    margin: "0 auto",
+    padding: "16px 20px",
+  }}
+>
+
+
         <h2>Your Trips</h2>
+        {/* ===== SUMMARY CARDS ===== */}
+<div className="summary-grid">
+  <div className="summary-card green">
+    <p className="label">Total Budget</p>
+    <h2>₹{trips.reduce((a, t) => a + Number(t.budget), 0)}</h2>
+    <span>Across all trips</span>
+  </div>
+
+  <div className="summary-card white">
+    <p className="label">Total Spent</p>
+    <h2>₹{trips.reduce((a, t) => a + Number(t.total_spent || 0), 0)}</h2>
+    <span>Tracked so far</span>
+  </div>
+
+  <div className="summary-card white">
+    <p className="label">Active Trips</p>
+    <h2>{trips.length}</h2>
+    <span>Total planned</span>
+  </div>
+
+  <div className="summary-card orange">
+    <p className="label">Over Budget</p>
+    <h2>{trips.filter(t => t.over_budget).length}</h2>
+    <span>Needs attention</span>
+  </div>
+</div>
+
 
         <form onSubmit={createTrip}>
           <input
