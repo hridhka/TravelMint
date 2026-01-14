@@ -3,15 +3,15 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import {
   getExpenses,
   addExpense,
-  deleteExpense,
   updateExpense,
+  deleteExpense,
 } from "../controllers/expenseController.js";
 
 const router = express.Router();
 
 router.get("/:tripId", authMiddleware, getExpenses);
 router.post("/", authMiddleware, addExpense);
-router.delete("/:id", authMiddleware, deleteExpense);
 router.put("/:id", authMiddleware, updateExpense);
+router.delete("/:id", authMiddleware, deleteExpense);
 
 export default router;
