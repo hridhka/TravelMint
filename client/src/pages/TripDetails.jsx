@@ -27,7 +27,7 @@ function TripDetails() {
   // 🗑 INLINE DELETE STATE
   const [deleteId, setDeleteId] = useState(null);
 
-  // ✅ ADDITION 1 — DATE FORMATTER
+  // ✅ DATE FORMATTER
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     const d = new Date(dateStr);
@@ -120,12 +120,31 @@ function TripDetails() {
       <div className="trip-container">
         <h2>Trip Details</h2>
 
+        {/* ✅ FIXED SUMMARY SECTION (THIS WAS THE ISSUE) */}
         {summary && (
-          <div className={`summary-card ${summary.overBudget ? "danger" : ""}`}>
-            <p>Budget: ₹{summary.budget}</p>
-            <p>Total Spent: ₹{summary.totalSpent}</p>
-            <p>
-              Remaining: ₹{summary.remaining}{" "}
+          <div
+            style={{
+              border: "1px solid #e5e7eb",
+              borderRadius: "10px",
+              padding: "16px",
+              marginBottom: "20px",
+              background: "#fff",
+              maxWidth: "400px",
+            }}
+          >
+            <p style={{ margin: "6px 0" }}>
+              <strong>Budget:</strong> ₹{summary.budget}
+            </p>
+            <p style={{ margin: "6px 0" }}>
+              <strong>Total Spent:</strong> ₹{summary.totalSpent}
+            </p>
+            <p
+              style={{
+                margin: "6px 0",
+                color: summary.overBudget ? "#dc2626" : "#111",
+              }}
+            >
+              <strong>Remaining:</strong> ₹{summary.remaining}{" "}
               {summary.overBudget && "⚠ Over Budget"}
             </p>
           </div>
@@ -183,7 +202,6 @@ function TripDetails() {
             {expenses.map((e) => (
               <div key={e.id} className="expense-card">
                 {editingId === e.id ? (
-                  // ✏️ EDIT MODE
                   <div className="edit-box">
                     <input
                       type="number"
@@ -223,15 +241,12 @@ function TripDetails() {
                     </div>
                   </div>
                 ) : (
-                  // 👁 NORMAL VIEW
                   <>
                     <div>
                       <strong>₹{e.amount}</strong>
                       <span className="pill small">{e.category}</span>
                       <p className="desc">{e.description}</p>
-
-                      {/* ✅ ADDITION 2 — SPEND DATE */}
-                      <p style={{ fontSize: "12px", color: "#777", marginTop: "4px" }}>
+                      <p style={{ fontSize: "12px", color: "#777" }}>
                         Spent on: {formatDate(e.expense_date)}
                       </p>
                     </div>
