@@ -47,3 +47,44 @@ export const deleteTrip = async (req, res) => {
     res.status(500).json({ message: "Delete failed" });
   }
 };
+
+// ✅ ADD THIS — SUMMARY CONTROLLER
+export const getTripSummary = async (req, res) => {
+  const tripId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    // get trip budget
+    const tripRes = await pool.query(
+      `SELECT budget FROM trips WHERE id = $1 AND user_id = $2`,
+      [tripId, userId]
+    );
+
+    if (tripRes.rowCount === 0) {
+      return res.status(404).json({ message: "Trip not found" });
+    }
+
+    const budget = Number(tripRes.rows[0].budget);
+
+    // get total expenses
+    const expenseRes = await pool.query(
+      `SELECT COALESCE(SUM(amount), 0) AS total
+       FROM expenses
+       WHERE trip_id = $1 AND user_id = $2`,
+      [tripId, userId]
+    );
+
+    const totalSpent = Number(expenseRes.rows[0].total);
+    const remaining = budget - totalSpent;
+
+    res.json({
+      budget,
+      totalSpent,
+      remaining,
+      overBudget: remaining < 0,
+    });
+  } catch (err) {
+    console.error("SUMMARY ERROR:", err);
+    res.status(500).json({ message: "Failed to fetch summary" });
+  }
+};

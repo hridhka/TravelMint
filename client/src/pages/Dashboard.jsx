@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../api/api";
-import TripCard from "../components/TripCard";
 import Navbar from "../components/Navbar";
+import TripCard from "../components/TripCard";
 
 function Dashboard() {
-  const navigate = useNavigate();
-
   const [trips, setTrips] = useState([]);
   const [title, setTitle] = useState("");
   const [budget, setBudget] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-    fetchTrips();
-  }, [navigate]);
-
   const fetchTrips = async () => {
     const res = await api.get("/trips");
     setTrips(res.data);
   };
+
+  useEffect(() => {
+    fetchTrips();
+  }, []);
 
   const createTrip = async (e) => {
     e.preventDefault();
@@ -41,32 +33,22 @@ function Dashboard() {
     setBudget("");
     setStartDate("");
     setEndDate("");
-
     fetchTrips();
+  };
+
+  // 🔥 REMOVE TRIP FROM UI AFTER DELETE
+  const handleTripDelete = (id) => {
+    setTrips((prev) => prev.filter((t) => t.id !== id));
   };
 
   return (
     <>
       <Navbar />
 
-      <div
-        style={{
-          padding: "24px",
-          maxWidth: "800px",
-          margin: "0 auto",
-        }}
-      >
-        <h2 style={{ marginBottom: "16px" }}>Your Trips</h2>
+      <div style={{ maxWidth: "700px", margin: "0 auto", padding: "20px" }}>
+        <h2>Your Trips</h2>
 
-        <form
-          onSubmit={createTrip}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            marginBottom: "24px",
-          }}
-        >
+        <form onSubmit={createTrip}>
           <input
             placeholder="Trip title"
             value={title}
@@ -99,11 +81,15 @@ function Dashboard() {
           <button>Create Trip</button>
         </form>
 
-        {trips.length === 0 ? (
-          <p>No trips yet</p>
-        ) : (
-          trips.map((trip) => <TripCard key={trip.id} trip={trip} />)
-        )}
+        <div style={{ marginTop: "30px" }}>
+          {trips.map((trip) => (
+            <TripCard
+              key={trip.id}
+              trip={trip}
+              onDelete={handleTripDelete}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

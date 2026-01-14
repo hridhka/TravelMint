@@ -27,6 +27,16 @@ function TripDetails() {
   // 🗑 INLINE DELETE STATE
   const [deleteId, setDeleteId] = useState(null);
 
+  // ✅ ADDITION 1 — DATE FORMATTER
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    const d = new Date(dateStr);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   const fetchExpenses = async () => {
     const res = await api.get(`/expenses/${id}`);
     setExpenses(res.data);
@@ -219,6 +229,11 @@ function TripDetails() {
                       <strong>₹{e.amount}</strong>
                       <span className="pill small">{e.category}</span>
                       <p className="desc">{e.description}</p>
+
+                      {/* ✅ ADDITION 2 — SPEND DATE */}
+                      <p style={{ fontSize: "12px", color: "#777", marginTop: "4px" }}>
+                        Spent on: {formatDate(e.expense_date)}
+                      </p>
                     </div>
 
                     <div className="action-btns">
