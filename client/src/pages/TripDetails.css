@@ -1,0 +1,117 @@
+.trip-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.summary-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.summary-card.danger {
+  color: #dc2626;
+}
+
+.expense-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.expense-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.expense-form button {
+  background: #2f6f4e;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.category-section {
+  margin-bottom: 20px;
+  
+}
+
+.category-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: #e0e7ff;
+  padding: 6px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+.pill.small {
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+}
+
+.expense-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.desc {
+  font-size: 14px;
+  color: #555;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.action-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.edit-box input {
+  margin-bottom: 6px;
+  padding: 6px;
+  width: 100%;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+}

@@ -2,92 +2,263 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/api";
 import Navbar from "../components/Navbar";
+import "./TripDetails.css";
 
 function TripDetails() {
   const { id } = useParams();
 
   const [expenses, setExpenses] = useState([]);
+  const [summary, setSummary] = useState(null);
+
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
+
+  // ✏️ EDIT STATE
+  const [editingId, setEditingId] = useState(null);
+  const [editData, setEditData] = useState({
+    amount: "",
+    category: "",
+    description: "",
+    expense_date: "",
+  });
+
+  // 🗑 INLINE DELETE STATE
+  const [deleteId, setDeleteId] = useState(null);
 
   const fetchExpenses = async () => {
     const res = await api.get(`/expenses/${id}`);
     setExpenses(res.data);
   };
 
-  useEffect(() => {
-    fetchExpenses();
-  }, [id]);
-
-  const addExpense = async (e) => {
-    e.preventDefault();
-    try {
-      await api.post("/expenses", {
-        trip_id: id,
-        amount,
-        category,
-        description,
-        expense_date: date,
-      });
-      setAmount("");
-      setCategory("");
-      setDescription("");
-      setDate("");
-      fetchExpenses();
-    } catch {
-      alert("Add expense failed");
-    }
+  const fetchSummary = async () => {
+    const res = await api.get(`/trips/${id}/summary`);
+    setSummary(res.data);
   };
 
+  useEffect(() => {
+    fetchExpenses();
+    fetchSummary();
+  }, [id]);
+
+  // ➕ ADD EXPENSE
+  const addExpense = async (e) => {
+    e.preventDefault();
+    await api.post("/expenses", {
+      trip_id: id,
+      amount,
+      category,
+      description,
+      expense_date: date,
+    });
+    setAmount("");
+    setCategory("");
+    setDescription("");
+    setDate("");
+    fetchExpenses();
+    fetchSummary();
+  };
+
+  // 🗑 DELETE EXPENSE
   const deleteExpense = async (expenseId) => {
-    if (!window.confirm("Delete this expense?")) return;
     try {
       await api.delete(`/expenses/${expenseId}`);
+      setDeleteId(null);
       fetchExpenses();
-    } catch {
+      fetchSummary();
+    } catch (err) {
+      console.error("Delete failed", err);
       alert("Delete failed");
     }
   };
 
-  const updateExpense = async (expense) => {
-    const newAmount = prompt("New amount:", expense.amount);
-    if (!newAmount) return;
-
-    await api.put(`/expenses/${expense.id}`, {
-      amount: newAmount,
-      category: expense.category,
-      description: expense.description,
-      expense_date: expense.expense_date,
+  // ✏️ START EDIT
+  const startEdit = (e) => {
+    setEditingId(e.id);
+    setEditData({
+      amount: e.amount,
+      category: e.category,
+      description: e.description,
+      expense_date: e.expense_date?.split("T")[0],
     });
-
-    fetchExpenses();
   };
+
+  // 💾 SAVE EDIT
+  const saveEdit = async () => {
+    await api.put(`/expenses/${editingId}`, editData);
+    setEditingId(null);
+    fetchExpenses();
+    fetchSummary();
+  };
+
+  // ❌ CANCEL EDIT
+  const cancelEdit = () => {
+    setEditingId(null);
+  };
+
+  // 📊 CATEGORY TOTALS
+  const categoryTotals = expenses.reduce((acc, exp) => {
+    acc[exp.category] = (acc[exp.category] || 0) + Number(exp.amount);
+    return acc;
+  }, {});
 
   return (
     <>
       <Navbar />
-      <div style={{ padding: "20px", maxWidth: "800px", margin: "auto" }}>
+
+      <div className="trip-container">
         <h2>Trip Details</h2>
 
-        <form onSubmit={addExpense}>
-          <input value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" required />
-          <input value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" required />
-          <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+        {summary && (
+          <div className={`summary-card ${summary.overBudget ? "danger" : ""}`}>
+            <p>Budget: ₹{summary.budget}</p>
+            <p>Total Spent: ₹{summary.totalSpent}</p>
+            <p>
+              Remaining: ₹{summary.remaining}{" "}
+              {summary.overBudget && "⚠ Over Budget"}
+            </p>
+          </div>
+        )}
+
+        {/* ➕ ADD FORM */}
+        <form className="expense-form" onSubmit={addExpense}>
+          <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+          <input
+            placeholder="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          />
+          <input
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
           <button>Add Expense</button>
         </form>
 
-        <ul>
-          {expenses.map((e) => (
-            <li key={e.id}>
-              ₹{e.amount} — {e.category}
-              <button onClick={() => updateExpense(e)}>✏️ Edit</button>
-              <button onClick={() => deleteExpense(e.id)}>🗑 Delete</button>
-            </li>
-          ))}
-        </ul>
+        {/* 📊 CATEGORY PILLS */}
+        {Object.keys(categoryTotals).length > 0 && (
+          <div className="category-section">
+            <h4>Spent by Category</h4>
+            <div className="category-pills">
+              {Object.entries(categoryTotals).map(([cat, total]) => (
+                <span key={cat} className="pill">
+                  {cat}: ₹{total}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <h3>Expenses</h3>
+
+        {expenses.length === 0 ? (
+          <p>No expenses yet</p>
+        ) : (
+          <div className="expense-list">
+            {expenses.map((e) => (
+              <div key={e.id} className="expense-card">
+                {editingId === e.id ? (
+                  // ✏️ EDIT MODE
+                  <div className="edit-box">
+                    <input
+                      type="number"
+                      value={editData.amount}
+                      onChange={(ev) =>
+                        setEditData({ ...editData, amount: ev.target.value })
+                      }
+                    />
+                    <input
+                      value={editData.category}
+                      onChange={(ev) =>
+                        setEditData({ ...editData, category: ev.target.value })
+                      }
+                    />
+                    <input
+                      value={editData.description}
+                      onChange={(ev) =>
+                        setEditData({
+                          ...editData,
+                          description: ev.target.value,
+                        })
+                      }
+                    />
+                    <input
+                      type="date"
+                      value={editData.expense_date}
+                      onChange={(ev) =>
+                        setEditData({
+                          ...editData,
+                          expense_date: ev.target.value,
+                        })
+                      }
+                    />
+                    <div className="edit-actions">
+                      <button onClick={saveEdit}>Save</button>
+                      <button onClick={cancelEdit}>Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  // 👁 NORMAL VIEW
+                  <>
+                    <div>
+                      <strong>₹{e.amount}</strong>
+                      <span className="pill small">{e.category}</span>
+                      <p className="desc">{e.description}</p>
+                    </div>
+
+                    <div className="action-btns">
+                      <button
+                        className="edit-btn"
+                        onClick={() => startEdit(e)}
+                      >
+                        ✏️ Edit
+                      </button>
+
+                      {deleteId === e.id ? (
+                        <>
+                          <button
+                            className="confirm-btn"
+                            onClick={() => deleteExpense(e.id)}
+                          >
+                            ✅ Confirm
+                          </button>
+                          <button
+                            className="cancel-btn"
+                            onClick={() => setDeleteId(null)}
+                          >
+                            ❌ Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <button
+                          className="delete-btn"
+                          onClick={() => setDeleteId(e.id)}
+                        >
+                          🗑 Delete
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
