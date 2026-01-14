@@ -16,45 +16,28 @@ function Login() {
         password,
       });
 
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        navigate("/dashboard");
-      } else {
-        alert("No token received");
+      console.log("LOGIN RESPONSE FULL:", res.data);
+
+      if (!res.data.token) {
+        alert("No token returned from backend");
+        return;
       }
+
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
     } catch (err) {
-      console.error("Login failed:", err.response?.data || err.message);
-      alert("Login failed");
-    }
+  console.error("LOGIN ERROR FULL:", err);
+  console.error("LOGIN ERROR RESPONSE:", err.response);
+  alert(err.response?.data?.message || "Login failed");
+}
+
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "#5c9575",
-      }}
-    >
-      <form
-        onSubmit={handleLogin}
-        style={{
-          width: "320px",
-          padding: "24px",
-          background: "#ffffff",
-          borderRadius: "8px",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "14px",
-        }}
-      >
-        <h2 style={{ textAlign: "center", marginBottom: "8px" }}>
-          Login
-        </h2>
+    <div className="auth-container">
+      <h2>Login</h2>
 
+      <form onSubmit={handleLogin}>
         <input
           type="email"
           placeholder="Email"
@@ -72,12 +55,11 @@ function Login() {
         />
 
         <button type="submit">Login</button>
-
-        <p style={{ textAlign: "center", fontSize: "14px" }}>
-          Don’t have an account?{" "}
-          <Link to="/register">Register</Link>
-        </p>
       </form>
+
+      <p>
+        Don’t have an account? <Link to="/register">Register</Link>
+      </p>
     </div>
   );
 }

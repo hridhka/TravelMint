@@ -14,10 +14,9 @@ function TripDetails() {
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
 
-  useEffect(() => {
-    fetchExpenses();
-    fetchSummary();
-  }, [id]);
+  // ======================
+  // FETCH DATA
+  // ======================
 
   const fetchExpenses = async () => {
     const res = await api.get(`/expenses/${id}`);
@@ -28,6 +27,15 @@ function TripDetails() {
     const res = await api.get(`/trips/${id}/summary`);
     setSummary(res.data);
   };
+
+  useEffect(() => {
+    fetchExpenses();
+    fetchSummary();
+  }, [id]);
+
+  // ======================
+  // ADD EXPENSE
+  // ======================
 
   const addExpense = async (e) => {
     e.preventDefault();
@@ -49,22 +57,35 @@ function TripDetails() {
     fetchSummary();
   };
 
+  // ======================
+  // DELETE EXPENSE ✅
+  // ======================
+
 const deleteExpense = async (expenseId) => {
-  console.log("🧨 Deleting expense with id:", expenseId);
-
   try {
-    const res = await api.delete(`/expenses/${expenseId}`);
-    console.log("DELETE RESPONSE:", res.data);
-
+    await api.delete(`/expenses/${expenseId}`);
     fetchExpenses();
     fetchSummary();
   } catch (err) {
+    const message = err.response?.data?.message;
+
+    if (message === "Expense not found or not authorized") {
+      alert("You don’t have permission to delete this expense.");
+    } else if (message === "No token provided") {
+      alert("Please log in again.");
+    } else {
+      alert("Delete failed. Try again.");
+    }
+
     console.error("DELETE ERROR:", err.response?.data || err.message);
   }
 };
 
 
-  // 📊 total by category
+  // ======================
+  // CATEGORY TOTALS
+  // ======================
+
   const categoryTotals = expenses.reduce((acc, exp) => {
     acc[exp.category] = (acc[exp.category] || 0) + Number(exp.amount);
     return acc;
@@ -74,21 +95,14 @@ const deleteExpense = async (expenseId) => {
     <>
       <Navbar />
 
-      <div
-        style={{
-          padding: "20px",
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
-        <h2 style={{ marginBottom: "10px" }}>Trip Details</h2>
+      <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto" }}>
+        <h2>Trip Details</h2>
 
-        {/* 🔴 Budget summary */}
+        {/* 🔴 Budget Summary */}
         {summary && (
           <div
             style={{
               padding: "16px",
-              background: "#fff",
               border: "1px solid #ddd",
               borderRadius: "8px",
               marginBottom: "20px",
@@ -107,12 +121,7 @@ const deleteExpense = async (expenseId) => {
         {/* ➕ Add Expense */}
         <form
           onSubmit={addExpense}
-          style={{
-            display: "flex",
-            gap: "10px",
-            flexWrap: "wrap",
-            marginBottom: "20px",
-          }}
+          style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
         >
           <input
             type="number"
@@ -121,45 +130,39 @@ const deleteExpense = async (expenseId) => {
             onChange={(e) => setAmount(e.target.value)}
             required
           />
-
           <input
             placeholder="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             required
           />
-
           <input
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
           />
-
           <button>Add Expense</button>
         </form>
 
-        {/* 📊 Category totals */}
+        {/* 📊 Category Totals */}
         {Object.keys(categoryTotals).length > 0 && (
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginTop: "20px" }}>
             <h4>Spent by Category</h4>
             {Object.entries(categoryTotals).map(([cat, total]) => (
               <span
                 key={cat}
                 style={{
                   display: "inline-block",
+                  marginRight: "8px",
+                  background: "#eef2ff",
                   padding: "6px 10px",
                   borderRadius: "14px",
-                  background: "#eef2ff",
-                  marginRight: "8px",
-                  marginTop: "6px",
-                  fontSize: "14px",
                 }}
               >
                 {cat}: ₹{total}
@@ -168,8 +171,8 @@ const deleteExpense = async (expenseId) => {
           </div>
         )}
 
-        {/* 📜 Expense list */}
-        <h3>Expenses</h3>
+        {/* 📜 Expenses */}
+        <h3 style={{ marginTop: "30px" }}>Expenses</h3>
 
         {expenses.length === 0 ? (
           <p>No expenses yet</p>
@@ -179,25 +182,24 @@ const deleteExpense = async (expenseId) => {
               <li
                 key={e.id}
                 style={{
-                  padding: "12px",
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  background: "#fff",
-                  marginBottom: "10px",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  padding: "12px",
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  marginBottom: "10px",
                 }}
               >
                 <div>
-                  <strong>₹{e.amount}</strong>{" "}
+                  <strong>₹{e.amount}</strong>
                   <span
                     style={{
+                      marginLeft: "8px",
                       background: "#e0e7ff",
                       padding: "4px 8px",
                       borderRadius: "12px",
                       fontSize: "12px",
-                      marginLeft: "6px",
                     }}
                   >
                     {e.category}
@@ -207,11 +209,15 @@ const deleteExpense = async (expenseId) => {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => deleteExpense(e.id)}
+                {/* ✅ DELETE BUTTON */}
+                <button onClick={() => deleteExpense(e.id)}
                   style={{
                     background: "#dc2626",
                     color: "#fff",
+                    border: "none",
+                    padding: "6px 12px",
+                    borderRadius: "6px",
+                    cursor: "pointer",
                   }}
                 >
                   Delete

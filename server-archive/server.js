@@ -9,6 +9,12 @@ import expenseRoutes from "./routes/expenseRoutes.js";
 
 // load env variables
 dotenv.config();
+console.log("ENV CHECK:", {
+  DATABASE_URL: process.env.DATABASE_URL ? "OK" : "MISSING",
+  JWT_SECRET: process.env.JWT_SECRET ? "OK" : "MISSING",
+  PORT: process.env.PORT,
+});
+
 
 const app = express();
 
@@ -24,9 +30,10 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://travel-mint-two.vercel.app", 
+      "https://travel-mint-two.vercel.app",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
