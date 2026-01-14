@@ -37,16 +37,16 @@ function TripDetails() {
   // ADD EXPENSE
   // ======================
 
-  const addExpense = async (e) => {
+const addExpense = async (e) => {
   e.preventDefault();
 
   try {
     await api.post("/expenses", {
       trip_id: Number(id),
       amount: Number(amount),
-      category,
-      description,
-      expense_date: date,
+      category: category.trim(),
+      description: description.trim(),
+      expense_date: date, // ⚠ MUST be expense_date
     });
 
     setAmount("");
@@ -61,6 +61,7 @@ function TripDetails() {
     alert("Add expense failed");
   }
 };
+
 
   // ======================
   // DELETE EXPENSE ✅

@@ -1,15 +1,20 @@
-import db from "../config/db.js";
+import pool from "../db.js";
 
-/**
- * GET expenses for a trip
- */
+/* ================================
+   GET EXPENSES FOR A TRIP
+   ================================ */
 export const getExpenses = async (req, res) => {
   const { tripId } = req.params;
   const userId = req.user.id;
 
   try {
-    const result = await db.query(
-      "SELECT * FROM expenses WHERE trip_id = $1 AND user_id = $2 ORDER BY expense_date DESC",
+    const result = await pool.query(
+      `
+      SELECT *
+      FROM expenses
+      WHERE trip_id = $1 AND user_id = $2
+      ORDER BY expense_date DESC
+      `,
       [tripId, userId]
     );
 
@@ -20,45 +25,66 @@ export const getExpenses = async (req, res) => {
   }
 };
 
-/**
- * ADD expense
- */
+/* ================================
+   ADD EXPENSE
+   ================================ */
 export const addExpense = async (req, res) => {
-  const { trip_id, amount, category, description, expense_date } = req.body;
-  const userId = req.user.id;
-
   try {
-    await db.query(
-      `INSERT INTO expenses (trip_id, user_id, amount, category, description, expense_date)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [trip_id, userId, amount, category, description, expense_date]
+    const userId = req.user.id;
+    const { trip_id, amount, category, description, expense_date } = req.body;
+
+    if (!trip_id || !amount || !category || !expense_date) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // 🔐 Ensure trip belongs to user
+    const tripCheck = await pool.query(
+      "SELECT id FROM trips WHERE id = $1 AND user_id = $2",
+      [trip_id, userId]
     );
 
-    res.json({ message: "Expense added" });
+    if (tripCheck.rows.length === 0) {
+      return res.status(403).json({ message: "Unauthorized trip access" });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO expenses 
+       (trip_id, amount, category, description, expense_date)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING *`,
+      [trip_id, amount, category, description, expense_date]
+    );
+
+    res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error("ADD EXPENSE ERROR:", err);
-    res.status(500).json({ message: "Failed to add expense" });
+    res.status(500).json({ message: "Add expense failed" });
   }
 };
 
-/**
- * DELETE expense (WITH OWNERSHIP CHECK)
- */
+
+/* ================================
+   DELETE EXPENSE
+   ================================ */
 export const deleteExpense = async (req, res) => {
   const expenseId = req.params.id;
   const userId = req.user.id;
 
   try {
-    const check = await db.query(
-      "SELECT * FROM expenses WHERE id = $1 AND user_id = $2",
+    const result = await pool.query(
+      `
+      DELETE FROM expenses
+      WHERE id = $1 AND user_id = $2
+      RETURNING *
+      `,
       [expenseId, userId]
     );
 
-    if (check.rows.length === 0) {
-      return res.status(403).json({ message: "Not authorized" });
+    if (result.rowCount === 0) {
+      return res.status(403).json({
+        message: "Not allowed to delete this expense",
+      });
     }
-
-    await db.query("DELETE FROM expenses WHERE id = $1", [expenseId]);
 
     res.json({ message: "Expense deleted" });
   } catch (err) {
@@ -67,34 +93,37 @@ export const deleteExpense = async (req, res) => {
   }
 };
 
-/**
- * ✏️ UPDATE expense
- */
+/* ================================
+   UPDATE (EDIT) EXPENSE
+   ================================ */
 export const updateExpense = async (req, res) => {
   const expenseId = req.params.id;
-  const { amount, category, description, expense_date } = req.body;
   const userId = req.user.id;
+  const { amount, category, description, expense_date } = req.body;
 
   try {
-    const check = await db.query(
-      "SELECT * FROM expenses WHERE id = $1 AND user_id = $2",
-      [expenseId, userId]
+    const result = await pool.query(
+      `
+      UPDATE expenses
+      SET amount = $1,
+          category = $2,
+          description = $3,
+          expense_date = $4
+      WHERE id = $5 AND user_id = $6
+      RETURNING *
+      `,
+      [amount, category, description, expense_date, expenseId, userId]
     );
 
-    if (check.rows.length === 0) {
-      return res.status(403).json({ message: "Not authorized" });
+    if (result.rowCount === 0) {
+      return res.status(403).json({
+        message: "Not allowed to edit this expense",
+      });
     }
 
-    await db.query(
-      `UPDATE expenses
-       SET amount = $1, category = $2, description = $3, expense_date = $4
-       WHERE id = $5`,
-      [amount, category, description, expense_date, expenseId]
-    );
-
-    res.json({ message: "Expense updated" });
+    res.json(result.rows[0]);
   } catch (err) {
     console.error("UPDATE EXPENSE ERROR:", err);
-    res.status(500).json({ message: "Update failed" });
+    res.status(500).json({ message: "Edit failed" });
   }
 };
