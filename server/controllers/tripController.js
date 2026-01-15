@@ -82,6 +82,8 @@ export const getTripSummary = async (req, res) => {
   const budget = Number(trip.rows[0].budget);
   const totalSpent = Number(expenses.rows[0].total);
   const remaining = budget - totalSpent;
+  const overBudget = remaining < 0;
+
 
   res.json({
   title: trip.rows[0].title,
