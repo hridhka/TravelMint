@@ -23,10 +23,16 @@ export const registerUser = async (req, res) => {
       user: result.rows[0],
     });
   } catch (err) {
-    console.error("REGISTER ERROR:", err);
-    res.status(500).json({ message: "Register failed" });
+    console.error("REGISTER ERROR:", err); // 🔥 THIS LINE
+
+    if (err.code === "23505") {
+      return res.status(409).json({ message: "Email already exists" });
+    }
+
+    res.status(500).json({ message: "Server error" });
   }
 };
+
 
 
 // ================= LOGIN =================
