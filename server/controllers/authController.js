@@ -5,17 +5,17 @@ import pool from "../config/db.js";
 // ================= REGISTER =================
 export const registerUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!email || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "Missing fields" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
-      "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email",
-      [email, hashedPassword]
+      "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email",
+      [name, email, hashedPassword]
     );
 
     res.status(201).json({
@@ -27,6 +27,7 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: "Register failed" });
   }
 };
+
 
 // ================= LOGIN =================
 export const loginUser = async (req, res) => {
