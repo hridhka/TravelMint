@@ -105,7 +105,10 @@ function Dashboard() {
 
           <div className="summary-card orange">
             <p className="label">Over Budget</p>
-            <h2>{trips.filter((t) => t.over_budget).length}</h2>
+            <h2>
+  {trips.filter(t => Number(t.total_spent) > Number(t.budget)).length}
+</h2>
+
             <span>Needs attention</span>
           </div>
         </div>

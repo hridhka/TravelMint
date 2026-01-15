@@ -32,11 +32,16 @@ function TripCard({ trip, onDelete }) {
     });
   };
 
-  // 🔢 calculations (ADDED)
+  // 🔢 calculations
   const spent = Number(trip.total_spent || 0);
   const budget = Number(trip.budget || 0);
   const percent = budget ? Math.min((spent / budget) * 100, 100) : 0;
   const overBudget = spent > budget;
+
+  // 🖼️ image (ADDED)
+  const imageUrl = `https://source.unsplash.com/600x400/?${encodeURIComponent(
+    trip.title
+  )}`;
 
   return (
     <div
@@ -44,7 +49,12 @@ function TripCard({ trip, onDelete }) {
       onClick={() => navigate(`/trips/${trip.id}`)}
     >
       {/* IMAGE HEADER */}
-      <div className="trip-image">
+      <div
+        className="trip-image"
+        style={{
+          backgroundImage: `url(${imageUrl})`, // ✅ ADDED
+        }}
+      >
         <span className={`status ${overBudget ? "danger" : "success"}`}>
           {overBudget ? "Over Budget" : "On Track"}
         </span>
@@ -66,9 +76,6 @@ function TripCard({ trip, onDelete }) {
           of ₹{budget.toLocaleString()} budget
         </p>
 
-
-        
-
         {/* PROGRESS BAR */}
         <div className="progress">
           <div
@@ -80,11 +87,11 @@ function TripCard({ trip, onDelete }) {
         {/* WARNING */}
         {overBudget && (
           <div className="warning">
-            ⚠ You’re ₹{spent - budget} over budget!
+            ⚠ You’re ₹{(spent - budget).toLocaleString()} over budget!
           </div>
         )}
 
-        {/* DELETE ACTIONS (PRESERVED) */}
+        {/* DELETE ACTIONS (UNCHANGED) */}
         <div
           className="trip-actions"
           onClick={(e) => e.stopPropagation()}
