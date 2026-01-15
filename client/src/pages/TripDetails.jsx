@@ -113,14 +113,59 @@ function TripDetails() {
     return acc;
   }, {});
 
+  // 🔥 UI CALCULATIONS (ADDED)
+  const spent = summary ? Number(summary.totalSpent) : 0;
+  const budgetTotal = summary ? Number(summary.budget) : 0;
+  const remaining = summary ? Number(summary.remaining) : 0;
+
+  const percentUsed =
+    budgetTotal > 0 ? Math.min((spent / budgetTotal) * 100, 100) : 0;
+
+  const heroImage = `https://picsum.photos/1200/500?random=${id}`;
+
   return (
     <>
       <Navbar />
 
       <div className="trip-container">
-        <h2>Trip Details</h2>
+        {/* HERO SECTION */}
+        <div className="trip-hero">
+          <img src={heroImage} alt="Trip cover" />
+          <div className="hero-overlay">
+            <h1>{summary?.title}</h1>
+            <p className="trip-hero-dates">
+              {formatDate(summary?.start_date)} →{" "}
+              {formatDate(summary?.end_date)}
+            </p>
+          </div>
+        </div>
 
-        {/* ✅ FIXED SUMMARY SECTION (THIS WAS THE ISSUE) */}
+        {/* 💰 BUDGET OVERVIEW */}
+        {summary && (
+          <div className="budget-card">
+            <div className="budget-row">
+              <span>₹{spent.toLocaleString()} spent</span>
+              <span className={remaining < 0 ? "danger" : "success"}>
+                ₹{remaining.toLocaleString()} left
+              </span>
+            </div>
+
+            <div className="budget-bar">
+              <div
+                className={`budget-fill ${
+                  remaining < 0 ? "danger" : "success"
+                }`}
+                style={{ width: `${percentUsed}%` }}
+              />
+            </div>
+
+            <div className="budget-footer">
+              Budget: ₹{budgetTotal.toLocaleString()}
+            </div>
+          </div>
+        )}
+
+        {/* ✅ ORIGINAL SUMMARY (UNCHANGED) */}
         {summary && (
           <div
             style={{
@@ -150,7 +195,7 @@ function TripDetails() {
           </div>
         )}
 
-        {/* ➕ ADD FORM */}
+        {/* ➕ ADD EXPENSE FORM */}
         <form className="expense-form" onSubmit={addExpense}>
           <input
             type="number"
@@ -179,7 +224,7 @@ function TripDetails() {
           <button>Add Expense</button>
         </form>
 
-        {/* 📊 CATEGORY PILLS */}
+        {/* 📊 CATEGORY TOTALS */}
         {Object.keys(categoryTotals).length > 0 && (
           <div className="category-section">
             <h4>Spent by Category</h4>

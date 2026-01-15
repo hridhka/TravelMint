@@ -39,9 +39,12 @@ function TripCard({ trip, onDelete }) {
   const overBudget = spent > budget;
 
   // 🖼️ image (ADDED)
-  const imageUrl = `https://source.unsplash.com/600x400/?${encodeURIComponent(
-    trip.title
-  )}`;
+const imageUrl = `https://picsum.photos/seed/${encodeURIComponent(
+  trip.title + "-travel-city"
+)}/600/400`;
+
+
+
 
   return (
     <div

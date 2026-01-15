@@ -1,9 +1,99 @@
+/* ===== PAGE CONTAINER ===== */
 .trip-container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* ===== HERO IMAGE ===== */
+.trip-hero {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.trip-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.1)
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+.hero-overlay h1 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* ===== BUDGET CARD ===== */
+.budget-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 26px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.budget-row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.budget-row .success {
+  color: #16a34a;
+}
+
+.budget-row .danger {
+  color: #dc2626;
+}
+
+.budget-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.budget-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.budget-fill.success {
+  background: #22c55e;
+}
+
+.budget-fill.danger {
+  background: #ef4444;
+}
+
+.budget-footer {
+  font-size: 13px;
+  color: #6b7280;
+  text-align: right;
+}
+
+/* ===== SUMMARY CARD (OLD, KEPT) ===== */
 .summary-card {
   background: #fff;
   border: 1px solid #ddd;
@@ -16,30 +106,34 @@
   color: #dc2626;
 }
 
+/* ===== EXPENSE FORM ===== */
 .expense-form {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .expense-form input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
 }
 
 .expense-form button {
-  background: #2f6f4e;
+  background: #16a34a;
   color: white;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
+/* ===== CATEGORY SECTION ===== */
 .category-section {
-  margin-bottom: 20px;
-  
+  margin-bottom: 24px;
 }
 
 .category-pills {
@@ -49,10 +143,10 @@
 }
 
 .pill {
-  background: #e0e7ff;
-  padding: 6px 10px;
-  border-radius: 14px;
-  font-size: 14px;
+  background: #eef2ff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
 }
 
 .pill.small {
@@ -60,22 +154,21 @@
   font-size: 12px;
 }
 
+/* ===== EXPENSE LIST ===== */
 .expense-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  
+  gap: 12px;
 }
 
 .expense-card {
   background: #fff;
-  border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 8px;
+  border-radius: 12px;
+  padding: 14px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
 
 .desc {
@@ -83,15 +176,7 @@
   color: #555;
 }
 
-.delete-btn {
-  background: #dc2626;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
+/* ===== ACTION BUTTONS ===== */
 .action-btns {
   display: flex;
   gap: 8px;
@@ -101,17 +186,46 @@
   background: #2563eb;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ===== EDIT MODE ===== */
 .edit-box input {
   margin-bottom: 6px;
-  padding: 6px;
+  padding: 8px;
   width: 100%;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
 }
 
 .edit-actions {
   display: flex;
   gap: 8px;
+}
+
+.confirm-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.cancel-btn {
+  background: #9ca3af;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
 }

@@ -65,9 +65,10 @@ export const getTripSummary = async (req, res) => {
   const userId = req.user.id;
 
   const trip = await pool.query(
-    "SELECT budget FROM trips WHERE id=$1 AND user_id=$2",
-    [tripId, userId]
-  );
+  "SELECT title, start_date, end_date, budget FROM trips WHERE id=$1 AND user_id=$2",
+  [tripId, userId]
+);
+
 
   if (trip.rows.length === 0) {
     return res.status(404).json({ message: "Trip not found" });
@@ -83,9 +84,13 @@ export const getTripSummary = async (req, res) => {
   const remaining = budget - totalSpent;
 
   res.json({
-    budget,
-    totalSpent,
-    remaining,
-    overBudget: remaining < 0,
-  });
+  title: trip.rows[0].title,
+  start_date: trip.rows[0].start_date,
+  end_date: trip.rows[0].end_date,
+  budget,
+  totalSpent,
+  remaining,
+  overBudget,
+});
+
 };

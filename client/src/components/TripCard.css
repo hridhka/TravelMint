@@ -147,6 +147,10 @@
   padding: 6px 10px;
   border-radius: 6px;
 }
+.trip-image {
+  background-size: cover;
+  background-position: center;
+}
 
 
 
