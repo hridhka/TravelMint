@@ -45,14 +45,22 @@ function Dashboard() {
   return (
     <>
       <Navbar />
+      
 
-      <div
+<div
   style={{
-    maxWidth: "1100px",
+    maxWidth: "1200px",
     margin: "0 auto",
-    padding: "16px 20px",
+    padding: "24px 16px",
   }}
 >
+
+  <h1 style={{ margin: 0 }}>Welcome back! 👋</h1>
+  <p style={{ marginTop: "6px", color: "#6b7280" }}>
+    Track your travel expenses and stay on budget.
+  </p>
+
+
 
 
         <h2>Your Trips</h2>

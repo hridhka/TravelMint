@@ -1,69 +1,77 @@
 .trip-card {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+
+  background: linear-gradient(180deg, #9ca3af, #6b7280);
+  color: white;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 18px;
-  margin-bottom: 14px;
-  border-radius: 14px;
-  border-radius: 16px;
+
   cursor: pointer;
-
-  color: #fcfefe;
-
-  background: linear-gradient(
-      rgba(18, 17, 17, 0.45),
-      rgba(0, 0, 0, 0.45)
-    ),
-    url("https://source.unsplash.com/900x400/?travel,landscape");
-
-  background-size: cover;
-  background-position: center;
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .trip-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
 }
 
-/* LEFT */
 .trip-info h3 {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-
-.trip-budget {
   margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+.trip-budget {
+  margin: 6px 0;
   font-size: 14px;
-  opacity: 0.95;
+  opacity: 0.9;
 }
 
 .trip-dates {
-  margin-top: 6px;
   font-size: 13px;
   opacity: 0.85;
 }
 
-/* RIGHT */
-.trip-actions {
-  display: flex;
-  align-items: center;
-}
-
-/* BUTTONS */
-.delete-btn {
-  background: rgba(62, 54, 54, 0.95);
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
+/* STATUS BADGE */
+.trip-card::before {
+  content: "On Track";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #22c55e;
+  color: white;
+  padding: 4px 10px;
+  font-size: 12px;
   border-radius: 999px;
-  cursor: pointer;
-  font-size: 13px;
+  font-weight: 500;
 }
 
+.trip-budget {
+  margin: 6px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.trip-dates {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.delete-btn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 .delete-btn:hover {
-  background: #dc2626;
+  opacity: 0.90;
 }
 
 .confirm-box {
@@ -73,18 +81,19 @@
 
 .cancel-btn {
   background: #e5e7eb;
-  color: #111;
   border: none;
-  padding: 7px 14px;
-  border-radius: 999px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
   cursor: pointer;
 }
 
 .confirm-btn {
-  background: #080808;
-  color: #fff;
+  background: #dc2626;
   border: none;
-  padding: 7px 16px;
-  border-radius: 999px;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
   cursor: pointer;
 }

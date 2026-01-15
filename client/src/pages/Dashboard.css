@@ -1,54 +1,70 @@
+/* === SUMMARY GRID FIX === */
 .summary-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  margin: 30px 0;
+  margin: 24px 0 32px;
 }
 
+/* === SUMMARY CARDS BASE === */
 .summary-card {
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  min-height: 120px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.summary-card h2 {
-  margin: 10px 0;
-  font-size: 28px;
-}
-
-.summary-card .label {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.summary-card span {
-  font-size: 13px;
-  opacity: 0.7;
-}
-
-/* COLORS */
+/* COLORS (Lovable-style) */
 .summary-card.green {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(180deg, #10b981, #059669);
   color: white;
 }
 
 .summary-card.orange {
-  background: linear-gradient(135deg, #fb923c, #f97316);
+  background: linear-gradient(180deg, #fb923c, #f97316);
   color: white;
 }
 
 .summary-card.white {
-  background: #fff;
-  color: #111;
+  background: white;
+  color: #111827;
 }
 
+/* TEXT */
+.summary-card .label {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+.summary-card h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.summary-card span {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* RESPONSIVE (important) */
+@media (max-width: 900px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
 .stats-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: 100%;
   margin-bottom: 24px;
 }
+
 
 .stat-card {
   min-width: 220px;
