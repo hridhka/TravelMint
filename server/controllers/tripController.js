@@ -4,12 +4,23 @@ export const getTrips = async (req, res) => {
   const { id: userId } = req.user;
 
   const result = await pool.query(
-    "SELECT * FROM trips WHERE user_id = $1 ORDER BY id DESC",
+    `
+    SELECT 
+      t.*,
+      COALESCE(SUM(e.amount), 0) AS total_spent,
+      COUNT(e.id) AS expense_count
+    FROM trips t
+    LEFT JOIN expenses e ON t.id = e.trip_id
+    WHERE t.user_id = $1
+    GROUP BY t.id
+    ORDER BY t.id DESC
+    `,
     [userId]
   );
 
   res.json(result.rows);
 };
+
 
 export const createTrip = async (req, res) => {
   const { title, budget, start_date, end_date } = req.body;

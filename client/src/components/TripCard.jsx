@@ -26,60 +26,94 @@ function TripCard({ trip, onDelete }) {
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     const d = new Date(dateStr);
-    const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const year = d.getFullYear();
-    return `${day}-${month}-${year}`;
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
   };
+
+  // 🔢 calculations (ADDED)
+  const spent = Number(trip.total_spent || 0);
+  const budget = Number(trip.budget || 0);
+  const percent = budget ? Math.min((spent / budget) * 100, 100) : 0;
+  const overBudget = spent > budget;
 
   return (
     <div
       className="trip-card"
       onClick={() => navigate(`/trips/${trip.id}`)}
     >
-      {/* LEFT */}
-      <div className="trip-info">
-        <h3>{trip.title}</h3>
+      {/* IMAGE HEADER */}
+      <div className="trip-image">
+        <span className={`status ${overBudget ? "danger" : "success"}`}>
+          {overBudget ? "Over Budget" : "On Track"}
+        </span>
 
-        <p className="trip-budget">
-          Budget: ₹{trip.budget}
-        </p>
-
+        <h3 className="trip-title">{trip.title}</h3>
         <p className="trip-dates">
-          📅 {formatDate(trip.start_date)} → {formatDate(trip.end_date)}
+          📅 {formatDate(trip.start_date)} – {formatDate(trip.end_date)}
         </p>
       </div>
 
-      {/* RIGHT */}
-      <div
-        className="trip-actions"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {!confirmDelete ? (
-          <button
-            className="delete-btn"
-            onClick={() => setConfirmDelete(true)}
-          >
-            🗑
-          </button>
-        ) : (
-          <div className="confirm-box">
-            <button
-              className="cancel-btn"
-              onClick={() => setConfirmDelete(false)}
-            >
-              Cancel
-            </button>
+      {/* BODY */}
+      <div className="trip-body">
+        <div className="trip-row">
+          <h2>₹{spent.toLocaleString()}</h2>
+          <span>{trip.expense_count || 0} expenses</span>
+        </div>
 
-            <button
-              className="confirm-btn"
-              onClick={deleteTrip}
-              disabled={deleting}
-            >
-              {deleting ? "Deleting..." : "Confirm"}
-            </button>
+        <p className="trip-sub">
+          of ₹{budget.toLocaleString()} budget
+        </p>
+
+
+        
+
+        {/* PROGRESS BAR */}
+        <div className="progress">
+          <div
+            className={`progress-fill ${overBudget ? "danger" : "success"}`}
+            style={{ width: `${percent}%` }}
+          />
+        </div>
+
+        {/* WARNING */}
+        {overBudget && (
+          <div className="warning">
+            ⚠ You’re ₹{spent - budget} over budget!
           </div>
         )}
+
+        {/* DELETE ACTIONS (PRESERVED) */}
+        <div
+          className="trip-actions"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {!confirmDelete ? (
+            <button
+              className="delete-icon"
+              onClick={() => setConfirmDelete(true)}
+            >
+              🗑
+            </button>
+          ) : (
+            <div className="confirm-box">
+              <button
+                className="cancel-btn"
+                onClick={() => setConfirmDelete(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="confirm-btn"
+                onClick={deleteTrip}
+                disabled={deleting}
+              >
+                {deleting ? "Deleting..." : "Confirm"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

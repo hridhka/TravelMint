@@ -1,77 +1,131 @@
 .trip-card {
-  width: 100%;
-  max-width: 100%;
-  border-radius: 14px;
-  padding: 16px 20px;
-  margin-bottom: 16px;
-
-  background: linear-gradient(180deg, #9ca3af, #6b7280);
-  color: white;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
   cursor: pointer;
 }
 
 .trip-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
 }
 
-.trip-info h3 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
+/* IMAGE HEADER */
+.trip-image {
+  height: 160px;
+  padding: 16px;
+  color: white;
+  position: relative;
+  background:
+    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.65)),
+    url("https://images.unsplash.com/800x600/?travel,city");
+  background-size: cover;
+  background-position: center;
 }
-.trip-budget {
-  margin: 6px 0;
-  font-size: 14px;
-  opacity: 0.9;
+
+.trip-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .trip-dates {
   font-size: 13px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
-/* STATUS BADGE */
-.trip-card::before {
-  content: "On Track";
+/* STATUS */
+.status {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: #22c55e;
-  color: white;
-  padding: 4px 10px;
+  padding: 6px 12px;
   font-size: 12px;
   border-radius: 999px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.trip-budget {
-  margin: 6px 0;
-  font-size: 14px;
-  opacity: 0.9;
+.status.success {
+  background: #22c55e;
 }
 
-.trip-dates {
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-.delete-btn {
+.status.danger {
   background: #ef4444;
-  border: none;
-  color: white;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  cursor: pointer;
 }
-.delete-btn:hover {
-  opacity: 0.90;
+
+/* BODY */
+.trip-body {
+  padding: 16px;
+}
+
+.trip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trip-row h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.trip-row span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.trip-sub {
+  margin: 6px 0 12px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* PROGRESS BAR */
+.progress {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+}
+
+.progress-fill.success {
+  background: #22c55e;
+}
+
+.progress-fill.danger {
+  background: #ef4444;
+}
+
+/* WARNING */
+.warning {
+  margin-top: 10px;
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+/* ACTIONS */
+.trip-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-icon {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
 }
 
 .confirm-box {
@@ -84,16 +138,26 @@
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
 }
 
 .confirm-btn {
   background: #dc2626;
-  border: none;
   color: white;
-  padding: 6px 12px;
+  border: none;
+  padding: 6px 10px;
   border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .trip-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trip-actions {
+    align-self: flex-end;
+  }
 }
