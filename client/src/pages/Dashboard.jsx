@@ -68,7 +68,7 @@ function Dashboard() {
           <button
             onClick={() => setOpenModal(true)}
             style={{
-              background: "#10b981",
+              background: "#029061",
               color: "#fff",
               border: "none",
               padding: "10px 16px",

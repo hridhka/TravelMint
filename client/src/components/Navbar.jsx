@@ -12,14 +12,15 @@ function Navbar() {
     <nav
       style={{
         padding: "14px 20px",
-        borderBottom: "1px solid #e0e0e0",
+        borderBottom: "1px solid #e0dcdc",
         background: "#ffffff",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
       }}
     >
-      <strong style={{ fontSize: "25px", fontWeight: "750" }}>TravelMint</strong>
+      <strong style={{ fontSize: "26px", fontWeight: "780", color: "#057451" }}> 🌍
+         TravelMint</strong>
       <button onClick={logout}>Logout</button>
     </nav>
   );

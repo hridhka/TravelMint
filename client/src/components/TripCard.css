@@ -27,14 +27,27 @@
 
 .trip-title {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 6px 18px rgba(0, 0, 0, 0.9);
 }
 
 .trip-dates {
-  font-size: 13px;
-  opacity: 0.9;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(9, 9, 9, 0.178);
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 6px;
 }
+
+
 
 /* STATUS */
 .status {
@@ -49,10 +62,12 @@
 
 .status.success {
   background: #22c55e;
+  color: #ffffff;
 }
 
 .status.danger {
   background: #ef4444;
+  color: #ffffff;
 }
 
 /* BODY */
@@ -106,7 +121,7 @@
 .warning {
   margin-top: 10px;
   background: #fee2e2;
-  color: #b91c1c;
+  color: #690202;
   padding: 10px;
   border-radius: 12px;
   font-size: 14px;
@@ -120,12 +135,17 @@
 }
 
 .delete-icon {
-  background: #ef4444;
-  color: white;
+  background:white;
+  color: rgb(12, 12, 12);
   border: none;
   border-radius: 8px;
   padding: 6px 10px;
   cursor: pointer;
+}
+
+.delete-icon:hover {
+  background: #a2a2a283;
+  color: white;
 }
 
 .confirm-box {
@@ -134,14 +154,14 @@
 }
 
 .cancel-btn {
-  background: #e5e7eb;
+  background: #d0d1d1;
   border: none;
   padding: 6px 10px;
   border-radius: 6px;
 }
 
 .confirm-btn {
-  background: #dc2626;
+  background: #058f2e;
   color: white;
   border: none;
   padding: 6px 10px;
@@ -151,7 +171,6 @@
   background-size: cover;
   background-position: center;
 }
-
 
 
 /* RESPONSIVE */

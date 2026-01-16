@@ -38,6 +38,12 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
+.summary-card:hover {
+  box-shadow: 10px 10px 0px #b6b6b6;
+  top: -1px;
+  left: -1px;
+}
+
 /* COLORS */
 .summary-card.green {
   background: linear-gradient(135deg, #10b981, #059669);
