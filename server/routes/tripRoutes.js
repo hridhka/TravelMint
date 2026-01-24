@@ -4,14 +4,17 @@ import {
   getTrips,
   createTrip,
   deleteTrip,
-  getTripSummary, // ✅ ADD
+  getTripSummary,
+  planTripWithAI, // 🤖
 } from "../controllers/tripController.js";
 
 const router = express.Router();
 
 router.get("/", authMiddleware, getTrips);
 router.post("/", authMiddleware, createTrip);
-router.get("/:id/summary", authMiddleware, getTripSummary); // ✅ ADD
+router.post("/ai/plan", authMiddleware, planTripWithAI);
+
+router.get("/:id/summary", authMiddleware, getTripSummary);
 router.delete("/:id", authMiddleware, deleteTrip);
 
 export default router;
