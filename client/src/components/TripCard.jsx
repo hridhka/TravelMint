@@ -48,14 +48,15 @@ const imageUrl = `https://picsum.photos/seed/${encodeURIComponent(
 
   return (
     <div
-      className="trip-card"
-      onClick={() => navigate(`/trips/${trip.id}`)}
-    >
+  className="trip-card card-3d"
+  onClick={() => navigate(`/trips/${trip.id}`)}
+>
+
       {/* IMAGE HEADER */}
       <div
         className="trip-image"
         style={{
-          backgroundImage: `url(${imageUrl})`, // ✅ ADDED
+          backgroundImage: `url(${imageUrl})`, 
         }}
       >
         <span className={`status ${overBudget ? "danger" : "success"}`}>

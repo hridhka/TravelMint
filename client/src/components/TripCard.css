@@ -185,3 +185,37 @@
     align-self: flex-end;
   }
 }
+
+/* =========================
+   3D CARD EFFECT
+========================= */
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.card-3d:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+/* Slight image lift for depth */
+.card-3d .trip-image {
+  transition: transform 0.35s ease;
+}
+
+.card-3d:hover .trip-image {
+  transform: scale(1.04);
+}
+
+/* Buttons feel pressable */
+.card-3d button {
+  transition: transform 0.15s ease;
+}
+
+.card-3d button:active {
+  transform: scale(0.94);
+}

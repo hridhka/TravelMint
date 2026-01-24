@@ -31,10 +31,10 @@ function TripDetails() {
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     const d = new Date(dateStr);
-    const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const year = d.getFullYear();
-    return `${day}-${month}-${year}`;
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
   };
 
   const fetchExpenses = async () => {
@@ -133,7 +133,7 @@ function TripDetails() {
           <div className="hero-overlay">
             <h1>{summary?.title}</h1>
             <p>
-              {formatDate(summary?.start_date)} →{" "}
+              📅 {formatDate(summary?.start_date)} →{" "}
               {formatDate(summary?.end_date)}
             </p>
           </div>
@@ -172,7 +172,7 @@ function TripDetails() {
 
         {Object.keys(categoryTotals).length > 0 && (
           <div className="category-section">
-            <h4>Spent by Category</h4>
+            <h3>Spent by Category</h3><br/>
             <div className="category-pills">
               {Object.entries(categoryTotals).map(([cat, total]) => (
                 <span key={cat} className="pill">
@@ -183,7 +183,7 @@ function TripDetails() {
           </div>
         )}
 
-        <h3>Expenses</h3>
+        <h3>Expenses</h3><br/>
 
         <div className="expense-list">
           {expenses.map((e) => (

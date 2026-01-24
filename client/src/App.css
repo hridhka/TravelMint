@@ -48,3 +48,79 @@
 body {
   overflow-x: hidden;
 }
+
+/* ===============================
+   🔥 3D / DEPTH / GLASS UTILITIES
+================================ */
+
+.card-3d {
+  background: white;
+  border-radius: 18px;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: 
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.card-3d:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.14),
+    0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.btn-3d {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  box-shadow:
+    0 8px 16px rgba(34, 197, 94, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 22px rgba(34, 197, 94, 0.45),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-3d:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 6px 10px rgba(34, 197, 94, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glass-3d {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.float-3d {
+  animation: float3d 6s ease-in-out infinite;
+}
+
+@keyframes float3d {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
