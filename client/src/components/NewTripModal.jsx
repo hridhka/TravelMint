@@ -24,38 +24,49 @@ function NewTripModal({
   const [travelStyle, setTravelStyle] = useState("");
   const [preferences, setPreferences] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
+  const [aiOptions, setAiOptions] = useState([]);
 
+  // 🔥 Generate Multiple AI Plans
   const handleAIPlan = async () => {
+    if (!days || !travelStyle || !preferences) {
+      alert("Please fill all AI fields");
+      return;
+    }
+
     setAiLoading(true);
 
     try {
-      const res = await api.post("/trips/ai/plan", {
+      const res = await api.post("/ai/plan", {
         days: Number(days),
         preferences,
         travelStyle,
       });
 
-      const plan = res.data.plan;
-
-      // AI fills the trip
-      setTitle(plan.title);
-      setBudget(plan.budget);
-
-      // Auto-generate dates based on days
-      const start = new Date();
-      const end = new Date();
-      end.setDate(start.getDate() + plan.days - 1);
-
-      setStartDate(start.toISOString().split("T")[0]);
-      setEndDate(end.toISOString().split("T")[0]);
-
-      alert("✨ AI planned your trip. Review & click Create Trip.");
+      setAiOptions(res.data.options || []);
     } catch (err) {
       console.error(err);
       alert("AI planning failed");
     } finally {
       setAiLoading(false);
     }
+  };
+
+  // 🔥 When user selects one AI plan
+  const selectAIPlan = (plan) => {
+    setTitle(plan.title);
+    setBudget(plan.budget);
+
+    const start = new Date();
+    const end = new Date();
+    end.setDate(start.getDate() + Number(days) - 1);
+
+    setStartDate(start.toISOString().split("T")[0]);
+    setEndDate(end.toISOString().split("T")[0]);
+
+    setMode("manual");
+    setAiOptions([]);
+
+    alert("✨ Plan selected! Now click Create Trip.");
   };
 
   return (
@@ -81,7 +92,7 @@ function NewTripModal({
           </button>
         </div>
 
-        {/* MANUAL MODE */}
+        {/* ================= MANUAL MODE ================= */}
         {mode === "manual" && (
           <>
             <label>Destination</label>
@@ -124,7 +135,7 @@ function NewTripModal({
           </>
         )}
 
-        {/* AI MODE */}
+        {/* ================= AI MODE ================= */}
         {mode === "ai" && (
           <>
             <label>Number of Days</label>
@@ -156,6 +167,27 @@ function NewTripModal({
             >
               {aiLoading ? "AI is thinking..." : "Generate AI Plan ✨"}
             </button>
+
+            {/* 🔥 AI Trip Cards */}
+            {aiOptions.length > 0 && (
+              <div className="ai-options">
+                {aiOptions.map((trip, index) => (
+                  <div key={index} className="ai-card">
+                    <h3>{trip.title}</h3>
+                    <p><strong>Vibe:</strong> {trip.vibe}</p>
+                    <p><strong>Budget:</strong> ₹{trip.budget}</p>
+                    <p><strong>Per Day:</strong> ₹{trip.dailyBudget}</p>
+
+                    <button
+                      className="select-btn"
+                      onClick={() => selectAIPlan(trip)}
+                    >
+                      Select This Plan
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>

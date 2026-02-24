@@ -42,7 +42,7 @@ export const createTrip = async (req, res) => {
 
   res.json(result.rows[0]);
 };
-
+//groq 
 /* =========================
    DELETE TRIP
 ========================= */
@@ -98,57 +98,77 @@ export const getTripSummary = async (req, res) => {
   });
 };
 
-/* =========================
-   🤖 AI TRIP PLANNER
-========================= */
+import Groq from "groq-sdk";
+
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
+/* 
+  REAL AI TRIP PLANNER (Groq)
+ */
 export const planTripWithAI = async (req, res) => {
   try {
     const { days, preferences, travelStyle } = req.body;
 
-    // 🎯 Smart destination selection
-    const destinations = {
-      adventure: ["Bali", "Manali", "Iceland"],
-      culture: ["Rome", "Kyoto", "Paris"],
-      food: ["Bangkok", "Italy", "Delhi"],
-      shopping: ["Dubai", "Seoul", "Singapore"],
-    };
+    const prompt = `
+You are a smart travel planner.
 
-    const key = Object.keys(destinations).find((k) =>
-      preferences?.toLowerCase().includes(k)
-    );
+Create 3 different travel trip options based on:
 
-    const title =
-      destinations[key]?.[0] || "Barcelona";
+Days: ${days}
+Travel Style: ${travelStyle}
+Preferences: ${preferences}
 
-    const baseBudget =
-      travelStyle === "Luxury" ? 120000 :
-      travelStyle === "Backpacking" ? 40000 :
-      70000;
+Return ONLY valid JSON in this exact format:
 
-    const dailyBudget = Math.round(baseBudget / days);
+{
+  "options": [
+    {
+      "title": "",
+      "destination": "",
+      "vibe": "",
+      "budget": number,
+      "dailyBudget": number,
+      "highlights": [],
+      "breakdown": {
+        "stay": number,
+        "food": number,
+        "transport": number,
+        "activities": number
+      }
+    }
+  ]
+}
+
+Rules:
+- Budgets must be in INR
+- No explanations
+- No markdown
+- Only JSON
+`;
+
+    const completion = await groq.chat.completions.create({
+      model: "llama3-70b-8192",
+      messages: [
+        { role: "system", content: "You are a professional travel AI." },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.8,
+    });
+
+    const aiText = completion.choices[0].message.content;
+
+    // 🔥 Safely parse JSON
+    const parsed = JSON.parse(aiText);
 
     res.json({
       aiGenerated: true,
-      plan: {
-        title,
-        days,
-        budget: baseBudget,
-        breakdown: {
-          stay: Math.round(baseBudget * 0.4),
-          food: Math.round(baseBudget * 0.2),
-          transport: Math.round(baseBudget * 0.25),
-          activities: Math.round(baseBudget * 0.15),
-        },
-        dailyBudget,
-        tips: [
-          "Book stays early",
-          "Keep 10% buffer",
-          "Use public transport",
-        ],
-      },
+      options: parsed.options,
     });
+
   } catch (err) {
-    console.error("AI PLAN ERROR:", err);
+    console.error("Groq AI Error:", err);
     res.status(500).json({ message: "AI planning failed" });
   }
 };
