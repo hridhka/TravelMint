@@ -63,7 +63,6 @@ const token = jwt.sign(
   { expiresIn: "1d" }
 );
 
-console.log("LOGIN TOKEN GENERATED:", token);
     res.json({ token });
   } catch (err) {
     console.error("LOGIN ERROR:", err);
