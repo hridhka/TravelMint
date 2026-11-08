@@ -1,3 +1,5 @@
+
+import { useEffect } from "react";
 import "./AddExpenseModal.css";
 
 function AddExpenseModal({
@@ -13,66 +15,128 @@ function AddExpenseModal({
   date,
   setDate,
 }) {
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal-box">
-        <button className="modal-close" onClick={onClose}>×</button>
+    <div
+      className="expense-modal-backdrop"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <section
+        className="expense-modal-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="expense-modal-title"
+      >
+        <div className="expense-modal-topline">
+          <span className="expense-modal-eyebrow">
+            TRAVELMINT · TRIP FINANCES
+          </span>
 
-        <h2>Add Expense</h2>
+          <button
+            type="button"
+            className="expense-modal-close"
+            onClick={onClose}
+            aria-label="Close add expense dialog"
+          >
+            ×
+          </button>
+        </div>
 
-        <form onSubmit={onSubmit}>
-          <label>Description</label>
-          <input
-            placeholder="e.g., Lunch at local restaurant"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
+        <div className="expense-modal-heading">
+          <span className="expense-modal-mark" aria-hidden="true">＋</span>
+          <h2 id="expense-modal-title">
+            Every detail <em>counts.</em>
+          </h2>
+          <p>Record a spend and keep your journey on budget.</p>
+        </div>
 
-          <div className="row">
-            <div>
-              <label>Amount (₹)</label>
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                required
-              />
+        <form className="expense-modal-form" onSubmit={onSubmit}>
+          <div className="expense-field">
+            <label htmlFor="expense-description">What was it for?</label>
+            <input
+              id="expense-description"
+              type="text"
+              placeholder="e.g. Lunch at a local café"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              maxLength={200}
+              autoComplete="off"
+              required
+            />
+          </div>
+
+          <div className="expense-form-row">
+            <div className="expense-field">
+              <label htmlFor="expense-amount">Amount</label>
+              <div className="expense-amount-wrap">
+                <span aria-hidden="true">₹</span>
+                <input
+                  id="expense-amount"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  placeholder="0"
+                  value={amount}
+                  onChange={(event) => setAmount(event.target.value)}
+                  required
+                />
+              </div>
             </div>
 
-            <div>
-              <label>Date</label>
+            <div className="expense-field">
+              <label htmlFor="expense-date">Date</label>
               <input
+                id="expense-date"
                 type="date"
                 value={date}
-                onChange={(e) => setDate(e.target.value)}
+                onChange={(event) => setDate(event.target.value)}
                 required
               />
             </div>
           </div>
 
-          <label>Category</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          >
-            <option value="">Select category</option>
-            <option value="Food">Food</option>
-            <option value="Shopping">Shopping</option>
-            <option value="Transport">Transport</option>
-            <option value="Accommodation">Accommodation</option>
-            <option value="Activities">Activities</option>
-            <option value="Other">Other</option>
-          </select>
+          <div className="expense-field">
+            <label htmlFor="expense-category">Choose a category</label>
+            <select
+              id="expense-category"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+              required
+            >
+              <option value="">Select a category</option>
+              <option value="Food">Food & dining</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Transport">Transport</option>
+              <option value="Accommodation">Accommodation</option>
+              <option value="Activities">Activities & experiences</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-          <button type="submit" className="primary-btn">
-            Add Expense
+          <button type="submit" className="expense-primary-btn">
+            <span>Save expense</span>
+            <span aria-hidden="true">↗</span>
           </button>
+
+          <p className="expense-modal-footnote">
+            Every entry helps you understand where your travel budget goes.
+          </p>
         </form>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,0 +1,905 @@
+
+/* =========================================
+   TRAVELMINT — COMPACT GLASS NAVBAR
+========================================= */
+
+.travel-navbar-shell {
+  position: fixed;
+  top: 24px;
+  left: 3%;
+  z-index: 1000;
+  width: 94%;
+  padding: 0;
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  transition: top 220ms ease, left 220ms ease, width 220ms ease;
+}
+
+.travel-navbar {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 7px 20px;
+  background: rgba(238, 244, 238, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 28px rgba(18, 35, 25, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px) saturate(135%);
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    border-radius 220ms ease;
+}
+
+/* BRAND */
+
+.travel-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 9px;
+  min-width: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.brand-mark {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.brand-mark svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.brand-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.7px;
+  white-space: nowrap;
+}
+
+/* DESKTOP NAV LINKS */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.navbar-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 37px;
+  padding: 0 11px;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.navbar-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.navbar-link.active {
+  background: rgba(255, 255, 255, 0.23);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 3px 12px rgba(20, 35, 25, 0.04);
+}
+
+.nav-link-icon {
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* RIGHT ACTIONS */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.navbar-search {
+  display: flex;
+  width: 35px;
+  height: 30px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.52);
+  border-right: 1px solid rgba(255, 255, 255, 0.52);
+  cursor: pointer;
+}
+
+.navbar-search svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+.navbar-profile-wrap {
+  position: relative;
+}
+
+.navbar-profile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.profile-avatar {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background: #194b38;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  color: #ffffff;
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.profile-greeting {
+  max-width: 100px;
+  overflow: hidden;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-chevron {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+
+.profile-chevron.chevron-open {
+  transform: rotate(180deg);
+}
+
+/* PROFILE DROPDOWN */
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 1001;
+  width: 210px;
+  padding: 9px;
+  overflow: hidden;
+  color: #1f3027;
+  background: rgba(255, 254, 250, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 13px;
+  box-shadow: 0 16px 42px rgba(16, 32, 23, 0.2);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: navbar-dropdown-in 160ms ease-out;
+}
+
+.profile-dropdown button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  color: #24352a;
+  background: transparent;
+  border: 0;
+  border-radius: 7px;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.profile-dropdown button:hover {
+  background: #edf2e9;
+}
+
+.dropdown-icon {
+  display: inline-flex;
+  width: 19px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  margin: 7px 4px;
+  background: #e8e8e0;
+}
+
+.profile-dropdown .dropdown-logout {
+  color: #c52f2b;
+}
+
+.profile-dropdown .dropdown-logout:hover {
+  background: #fbefed;
+}
+
+/* SCROLLED STATE */
+
+.travel-navbar-shell.is-scrolled {
+  top: 12px;
+  left: 3%;
+  width: 94%;
+  color: #183b2d;
+}
+
+.is-scrolled .travel-navbar {
+  min-height: 55px;
+  background: rgba(249, 249, 241, 0.86);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 8px 28px rgba(28, 42, 32, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(24px) saturate(145%);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
+}
+
+.is-scrolled .brand-mark {
+  color: #194b38;
+}
+
+.is-scrolled .navbar-link.active {
+  background: rgba(215, 228, 209, 0.78);
+  border-color: rgba(213, 225, 206, 0.65);
+}
+
+.is-scrolled .navbar-link:hover {
+  background: rgba(216, 229, 211, 0.55);
+}
+
+.is-scrolled .navbar-search {
+  border-color: rgba(44, 67, 51, 0.13);
+}
+
+/* MOBILE CONTROLS */
+
+.mobile-menu-toggle {
+  display: none;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+/* MOBILE MENU PANEL */
+
+.mobile-menu-panel {
+  display: none;
+}
+
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 2px 14px;
+  border-bottom: 1px solid #e8e8df;
+}
+
+.mobile-menu-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #1d4734;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px;
+}
+
+.mobile-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.mobile-menu-close {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  color: #25392d;
+  background: transparent;
+  border: 0;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 0;
+}
+
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 39px;
+  padding: 9px 12px;
+  color: #20372b;
+  background: transparent;
+  border: 0;
+  border-radius: 24px;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.mobile-menu-link.active,
+.mobile-menu-link:hover {
+  background: #e9eee5;
+}
+
+.mobile-menu-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 4px;
+  border-top: 1px solid #e8e8df;
+  color: #26392d;
+  font-size: 12px;
+}
+
+.mobile-menu-profile .profile-avatar {
+  width: 29px;
+  height: 29px;
+  border: 0;
+  font-size: 12px;
+}
+
+.mobile-logout {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 5px 4px;
+  color: #c52f2b;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ANIMATIONS */
+
+@keyframes navbar-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE NAVBAR */
+
+@media (max-width: 1100px) {
+  .travel-navbar {
+    grid-template-columns: minmax(145px, 1fr) auto minmax(135px, 1fr);
+    gap: 8px;
+    padding: 7px 14px;
+  }
+
+  .brand-name {
+    font-size: 21px;
+  }
+
+  .navbar-link {
+    gap: 6px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .navbar-actions {
+    gap: 7px;
+  }
+
+  .profile-greeting {
+    max-width: 75px;
+  }
+}
+
+@media (max-width: 820px) {
+  .travel-navbar-shell {
+    top: 18px;
+    left: 3%;
+    width: 94%;
+  }
+
+  .travel-navbar-shell.is-scrolled {
+    top: 10px;
+    left: 3%;
+    width: 94%;
+  }
+
+  .travel-navbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 56px;
+    padding: 7px 14px;
+    border-radius: 17px;
+  }
+
+  .brand-name {
+    font-size: 21px;
+  }
+
+  .brand-mark {
+    width: 24px;
+    height: 24px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .navbar-search {
+    width: 32px;
+    height: 29px;
+    border-left: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .is-scrolled .navbar-search {
+    border-right-color: rgba(44, 67, 51, 0.16);
+  }
+
+  .navbar-profile-wrap {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  .mobile-menu-panel {
+    display: block;
+    width: min(320px, 100%);
+    margin: 9px 0 0 auto;
+    padding: 16px;
+    color: #20372b;
+    background: rgba(255, 254, 249, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(20, 38, 27, 0.2);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    animation: navbar-dropdown-in 160ms ease-out;
+  }
+}
+
+@media (max-width: 420px) {
+  .travel-navbar-shell {
+    top: 12px;
+  }
+
+  .travel-navbar-shell.is-scrolled {
+    top: 8px;
+  }
+
+  .travel-navbar {
+    min-height: 52px;
+    padding: 7px 11px;
+    border-radius: 15px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .brand-mark {
+    width: 22px;
+    height: 22px;
+  }
+
+  .navbar-actions {
+    gap: 5px;
+  }
+
+  .navbar-search {
+    width: 29px;
+    padding: 0 6px;
+  }
+
+  .mobile-menu-panel {
+    width: min(290px, 100%);
+  }
+}
+
+/* ACCESSIBILITY */
+
+.travel-navbar button:focus-visible,
+.mobile-menu-panel button:focus-visible {
+  outline: 2px solid #8caf91;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-navbar-shell,
+  .travel-navbar,
+  .navbar-link,
+  .profile-chevron,
+  .profile-dropdown,
+  .mobile-menu-panel {
+    animation: none;
+    transition: none;
+  }
+}
+
+
+/* =========================================
+   CENTERED, COMPACT GLASS NAVBAR
+========================================= */
+
+.travel-navbar-shell,
+.travel-navbar-shell.is-scrolled {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  width: min(1120px, 88%);
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 1000;
+}
+
+/* Reduce overall height and padding */
+.travel-navbar {
+  min-height: 54px;
+  padding: 5px 18px;
+  gap: 10px;
+  border-radius: 17px;
+}
+
+/* Compact logo */
+.brand-mark {
+  width: 22px;
+  height: 22px;
+}
+
+.brand-name {
+  font-size: 21px;
+}
+
+/* Compact navigation */
+.navbar-links {
+  gap: 2px;
+}
+
+.navbar-link {
+  min-height: 32px;
+  padding: 0 9px;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.nav-link-icon {
+  width: 13px;
+  height: 13px;
+}
+
+/* Compact search and profile */
+.navbar-actions {
+  gap: 8px;
+}
+
+.navbar-search {
+  width: 30px;
+  height: 28px;
+}
+
+.navbar-search svg {
+  width: 16px;
+  height: 16px;
+}
+
+.profile-avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.profile-greeting {
+  max-width: 90px;
+  font-size: 11px;
+}
+
+.profile-chevron {
+  width: 12px;
+  height: 12px;
+}
+
+/* Scrolled navbar remains centered */
+.travel-navbar-shell.is-scrolled {
+  top: 12px;
+}
+
+.travel-navbar-shell.is-scrolled .travel-navbar {
+  min-height: 50px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .travel-navbar-shell,
+  .travel-navbar-shell.is-scrolled {
+    width: 92%;
+  }
+
+  .travel-navbar {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .navbar-link {
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+}
+
+/* Mobile: preserve your existing mobile menu */
+@media (max-width: 820px) {
+  .travel-navbar-shell,
+  .travel-navbar-shell.is-scrolled {
+    top: 14px;
+    width: 92%;
+  }
+
+  .travel-navbar {
+    min-height: 50px;
+    padding: 5px 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .travel-navbar-shell,
+  .travel-navbar-shell.is-scrolled {
+    top: 10px;
+    width: 94%;
+  }
+
+  .travel-navbar {
+    min-height: 47px;
+    padding: 4px 10px;
+  }
+
+  .brand-name {
+    font-size: 19px;
+  }
+}
+
+
+/* TravelMint — translucent glass navbar */
+
+/* Default and scrolled navbar */
+.travel-navbar-shell,
+.travel-navbar-shell.is-scrolled {
+  color: #24352a;
+}
+
+.travel-navbar-shell .travel-navbar,
+.travel-navbar-shell.is-scrolled .travel-navbar {
+  background: rgba(233, 235, 232, 0.64);
+  border: 1px solid rgba(2, 6, 0, 0.907);
+  box-shadow:
+    0 8px 32px rgba(13, 30, 22, 0.12),
+    inset 0 1px 0 rgba(233, 235, 232, 0.64);
+  backdrop-filter: blur(22px) saturate(155%);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    backdrop-filter 220ms ease;
+}
+
+/* Brand */
+.travel-navbar-shell .brand-mark {
+  color: #194b38;
+}
+
+.travel-navbar-shell .brand-name {
+  color: #24352a;
+}
+
+/* Navigation links */
+.travel-navbar-shell .navbar-link {
+  color: #30483a;
+}
+
+.travel-navbar-shell .navbar-link:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: #194b38;
+}
+
+.travel-navbar-shell .navbar-link.active {
+  color: #194b38;
+  background: rgba(222, 235, 217, 0.55);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 2px 10px rgba(30, 60, 40, 0.06);
+}
+
+/* Search */
+.travel-navbar-shell .navbar-search {
+  color: #30483a;
+  border-left-color: rgba(48, 72, 58, 0.15);
+  border-right-color: rgba(48, 72, 58, 0.15);
+}
+
+/* Profile */
+.travel-navbar-shell .navbar-profile {
+  color: #30483a;
+}
+
+.travel-navbar-shell .profile-avatar {
+  color: #ffffff;
+  background: #194b38;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Slightly clearer glass while scrolling */
+.travel-navbar-shell.is-scrolled .travel-navbar {
+  background: rgba(245, 248, 243, 0.58);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 8px 28px rgba(13, 30, 22, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+
+/* Improve readability of every navbar link */
+.travel-navbar-shell .navbar-link,
+.travel-navbar-shell.is-scrolled .navbar-link {
+  color: #263f30 !important;
+  font-weight: 500;
+  opacity: 1;
+  text-shadow: none;
+}
+
+/* Keep all navigation icons visible */
+.travel-navbar-shell .navbar-link .nav-link-icon {
+  color: #263f30 !important;
+  opacity: 1;
+}
+
+.travel-navbar-shell .navbar-link .nav-link-icon svg {
+  stroke: currentColor;
+}
+
+/* Hover state */
+.travel-navbar-shell .navbar-link:hover,
+.travel-navbar-shell.is-scrolled .navbar-link:hover {
+  color: #173f2b !important;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* Active page */
+.travel-navbar-shell .navbar-link.active,
+.travel-navbar-shell.is-scrolled .navbar-link.active {
+  color: #173f2b !important;
+  background: rgba(224, 236, 219, 0.78);
+  border-color: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
+}
+
+/* Keep the right-side controls readable */
+.travel-navbar-shell .navbar-search,
+.travel-navbar-shell .navbar-profile,
+.travel-navbar-shell .profile-chevron {
+  color: #263f30 !important;
+}
+
+/* Preserve the frosted-glass effect */
+.travel-navbar-shell .travel-navbar {
+  background: rgba(245, 248, 243, 0.42);
+  backdrop-filter: blur(22px) saturate(155%);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+}
+
+.travel-navbar-shell.is-scrolled .travel-navbar {
+  background: rgba(245, 248, 243, 0.58);
+}

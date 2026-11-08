@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/api";
 import "./Auth.css";
@@ -7,179 +8,173 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(false); // ✅ ADDED
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
+  const redirectTimer = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (redirectTimer.current) {
+        clearTimeout(redirectTimer.current);
+      }
+    };
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
       await api.post("/auth/register", {
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim(),
         password,
       });
 
-      setSuccess(true); // ✅ SHOW SUCCESS MESSAGE
+      setSuccess(true);
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500); // smooth redirect
+      redirectTimer.current = setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 1500);
     } catch (err) {
-      console.error(
-        "Registration failed. Email may already exist.",
-        err.response?.data
-      );
+      console.error("REGISTRATION ERROR:", err);
 
-      alert(
+      setError(
         err.response?.data?.message ||
-          "Registration failed. Email may already exist."
+          "Registration failed. Please check your details and try again."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "linear-gradient(135deg, #f8fafc, #eef2ff)",
-        padding: "20px",
-      }}
-    >
-      <form
-        onSubmit={handleRegister}
-        style={{
-          width: "340px",
-          padding: "28px",
-          background: "#ffffff",
-          borderRadius: "14px",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "14px",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "24px",
-            fontWeight: "700",
-            color: "#111827",
-          }}
-        >
-          Register
-        </h2>
+    <main className="auth-page">
+      <section className="auth-visual" aria-label="Travel inspiration">
+        <div className="auth-visual-overlay" />
 
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: "14px",
-            color: "#6b7280",
-            marginBottom: "8px",
-          }}
-        >
-          Create your account
-        </p>
+        <Link to="/" className="auth-brand auth-brand-light">
+          <span className="auth-brand-mark" aria-hidden="true">
+            ✳
+          </span>
+          TravelMint
+        </Link>
 
-        {/* ✅ SUCCESS MESSAGE */}
-        {success && (
-          <div
-            style={{
-              background: "#ecfdf5",
-              color: "#065f46",
-              padding: "10px",
-              borderRadius: "10px",
-              fontSize: "14px",
-              textAlign: "center",
-              fontWeight: "500",
-            }}
-          >
-            ✅ Registration successful. Redirecting to login…
-          </div>
-        )}
+        <div className="auth-visual-copy">
+          <span className="auth-eyebrow">A WORLD OF POSSIBILITIES</span>
+          <h1>
+            Collect moments,
+            <br />
+            not just miles<span>.</span>
+          </h1>
+          <p>
+            Your plans, your budget,
+            <br />
+            your next unforgettable journey.
+          </p>
+        </div>
 
-        <input
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          style={{
-            padding: "12px 14px",
-            borderRadius: "10px",
-            border: "1px solid #e5e7eb",
-            fontSize: "14px",
-          }}
-        />
+        <span className="auth-image-caption">
+          EVERY JOURNEY HAS A STORY
+        </span>
+      </section>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={{
-            padding: "12px 14px",
-            borderRadius: "10px",
-            border: "1px solid #e5e7eb",
-            fontSize: "14px",
-          }}
-        />
+      <section className="auth-panel">
+        <Link to="/" className="auth-brand auth-brand-dark">
+          <span className="auth-brand-mark" aria-hidden="true">
+            ✳
+          </span>
+          TravelMint
+        </Link>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{
-            padding: "12px 14px",
-            borderRadius: "10px",
-            border: "1px solid #e5e7eb",
-            fontSize: "14px",
-          }}
-        />
+        <div className="auth-form-content">
+          <span className="auth-eyebrow auth-eyebrow-dark">
+            BEGIN YOUR JOURNEY
+          </span>
 
-        <button
-          type="submit"
-          style={{
-            marginTop: "6px",
-            padding: "12px",
-            borderRadius: "10px",
-            border: "none",
-            background: "linear-gradient(135deg, #16a34a, #16a34a)",
-            color: "#ffffff",
-            fontWeight: "600",
-            fontSize: "15px",
-            cursor: "pointer",
-          }}
-        >
-          Register
-        </button>
+          <h2>Create your account.</h2>
+          <p className="auth-description">
+            A thoughtful way to plan trips and keep your spending on track.
+          </p>
 
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: "14px",
-            marginTop: "10px",
-          }}
-        >
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            style={{
-              color: "#16a34a",
-              fontWeight: "600",
-              textDecoration: "none",
-            }}
-          >
-            Login
-          </Link>
-        </p>
-      </form>
-    </div>
+          <form className="auth-form" onSubmit={handleRegister}>
+            <label htmlFor="register-name">Full name</label>
+            <input
+              id="register-name"
+              type="text"
+              placeholder="Your name"
+              autoComplete="name"
+              maxLength={100}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+
+            <label htmlFor="register-email">Email address</label>
+            <input
+              id="register-email"
+              type="email"
+              placeholder="you@example.com"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <label htmlFor="register-password">Password</label>
+            <input
+              id="register-password"
+              type="password"
+              placeholder="Create a password"
+              autoComplete="new-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            {error && (
+              <p className="auth-error" role="alert">
+                {error}
+              </p>
+            )}
+
+            {success && (
+              <p className="auth-success" role="status">
+                Registration successful. Redirecting to login…
+              </p>
+            )}
+
+            <button
+              className="auth-submit"
+              type="submit"
+              disabled={loading || success}
+            >
+              {loading
+                ? "Creating your account…"
+                : success
+                  ? "Account created"
+                  : "Create account"}
+
+              {!loading && !success && (
+                <span aria-hidden="true">→</span>
+              )}
+            </button>
+          </form>
+
+          <p className="auth-switch">
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </div>
+
+        <footer className="auth-footer">
+          TRAVEL WELL. SPEND THOUGHTFULLY.
+        </footer>
+      </section>
+    </main>
   );
 }
 

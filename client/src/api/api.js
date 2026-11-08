@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
 
 // 🔮 AI Trip Planner
 export const planTripWithAI = (data) => {
-  return api.post("/ai/plan-trip", data);
+  return api.post("/ai/plan", data);
 };
 
 
