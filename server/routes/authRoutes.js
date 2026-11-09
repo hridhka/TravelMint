@@ -1,7 +1,11 @@
+
 import express from "express";
+
 import {
   registerUser,
   loginUser,
+  updateProfile,
+  changePassword,
 } from "../controllers/authController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -30,5 +34,11 @@ router.get("/me", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Unable to fetch profile" });
   }
 });
+
+// Update profile name
+router.put("/me", authMiddleware, updateProfile);
+
+// Change password
+router.put("/change-password", authMiddleware, changePassword);
 
 export default router;
