@@ -29,7 +29,17 @@ function Login() {
       }
 
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard", { replace: true });
+
+try {
+  const profileRes = await api.get("/auth/me");
+
+  localStorage.setItem("username", profileRes.data.user.name);
+  localStorage.setItem("email", profileRes.data.user.email);
+} catch (profileError) {
+  console.error("Profile fetch failed:", profileError);
+}
+
+navigate("/dashboard", { replace: true });
     } catch (err) {
       console.error("LOGIN ERROR:", err);
 

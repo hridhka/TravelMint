@@ -1,0 +1,197 @@
+
+.help-support-page {
+  min-height: 100vh;
+  padding: 110px 24px 70px;
+  background: #f5f6f1;
+  color: #24352a;
+  font-family: Inter, "Segoe UI", sans-serif;
+}
+
+.help-support-container {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.help-back-button {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 45px;
+  padding: 9px 15px;
+  color: #31543d;
+  background: #e7eee4;
+  border: 1px solid #dce6d9;
+  border-radius: 30px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.help-back-button:hover {
+  background: #dce9d9;
+  transform: translateX(-3px);
+}
+
+.help-eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  color: #66856b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+.help-support-page h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 6vw, 52px);
+  font-weight: 400;
+  letter-spacing: -1.5px;
+}
+
+.help-intro {
+  margin: 13px 0 38px;
+  color: #758078;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.help-card {
+  margin-top: 18px;
+  padding: 27px 29px;
+  background: #ffffff;
+  border: 1px solid #e7ebe3;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(35, 55, 40, 0.035);
+}
+
+.help-card h2 {
+  margin: 0 0 12px;
+  color: #263b2d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.help-card > p {
+  margin: 0 0 17px;
+  color: #78827a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.help-card > a {
+  display: inline-block;
+  color: #39714b;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.help-card > a:hover {
+  text-decoration: underline;
+}
+
+.help-card details {
+  padding: 16px 0;
+  border-top: 1px solid #edf0e9;
+}
+
+.help-card details:first-of-type {
+  margin-top: 10px;
+}
+
+.help-card summary {
+  color: #344638;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+
+.help-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.help-card summary::after {
+  content: "+";
+  float: right;
+  color: #66856b;
+  font-size: 18px;
+}
+
+.help-card details[open] summary::after {
+  content: "−";
+}
+
+.help-card details p {
+  margin: 12px 0 2px;
+  color: #78827a;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Dark mode */
+
+:root[data-theme="dark"] .help-support-page {
+  background: #101b13;
+  color: #e5eee5;
+}
+
+:root[data-theme="dark"] .help-back-button {
+  color: #dcebdd;
+  background: #263d2c;
+  border-color: #405744;
+}
+
+:root[data-theme="dark"] .help-back-button:hover {
+  background: #304b37;
+}
+
+:root[data-theme="dark"] .help-eyebrow {
+  color: #9cbd9e;
+}
+
+:root[data-theme="dark"] .help-intro,
+:root[data-theme="dark"] .help-card > p,
+:root[data-theme="dark"] .help-card details p {
+  color: #a6b5a8;
+}
+
+:root[data-theme="dark"] .help-card {
+  background: #1b2d21;
+  border-color: #344b38;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="dark"] .help-card h2,
+:root[data-theme="dark"] .help-card summary {
+  color: #e1ebe0;
+}
+
+:root[data-theme="dark"] .help-card details {
+  border-top-color: #344b38;
+}
+
+:root[data-theme="dark"] .help-card summary::after {
+  color: #a4c5a5;
+}
+
+:root[data-theme="dark"] .help-card > a {
+  color: #a6d3a9;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .help-support-page {
+    padding: 95px 18px 45px;
+  }
+
+  .help-back-button {
+    margin-bottom: 35px;
+  }
+
+  .help-card {
+    padding: 22px 19px;
+  }
+}

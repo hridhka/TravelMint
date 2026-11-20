@@ -1,5 +1,4 @@
-import pool from "../db.js";
-
+import pool from "../config/db.js";
 /* GET expenses by trip */
 export const getExpenses = async (req, res) => {
   try {

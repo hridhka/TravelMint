@@ -903,3 +903,340 @@
 .travel-navbar-shell.is-scrolled .travel-navbar {
   background: rgba(245, 248, 243, 0.58);
 }
+
+
+
+/* =========================================
+   TRAVELMINT — DARK GLASS NAVBAR
+   ========================================= */
+
+/* Main navbar */
+
+:root[data-theme="dark"] .travel-navbar-shell,
+:root[data-theme="dark"] .travel-navbar-shell.is-scrolled {
+  color: #e5eee5;
+}
+
+:root[data-theme="dark"] .travel-navbar-shell .travel-navbar,
+:root[data-theme="dark"] .travel-navbar-shell.is-scrolled .travel-navbar {
+  background: rgba(25, 43, 32, 0.78) !important;
+  border: 1px solid rgba(145, 177, 148, 0.24) !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(22px) saturate(145%);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+}
+
+/* Brand */
+
+:root[data-theme="dark"] .travel-navbar-shell .brand-mark,
+:root[data-theme="dark"] .travel-navbar-shell .brand-name {
+  color: #dcebdd !important;
+}
+
+/* Navigation links */
+
+:root[data-theme="dark"] .travel-navbar-shell .navbar-link,
+:root[data-theme="dark"] .travel-navbar-shell.is-scrolled .navbar-link {
+  color: #d1dfd2 !important;
+}
+
+:root[data-theme="dark"] .travel-navbar-shell .navbar-link .nav-link-icon {
+  color: #d1dfd2 !important;
+}
+
+:root[data-theme="dark"] .travel-navbar-shell .navbar-link:hover,
+:root[data-theme="dark"] .travel-navbar-shell.is-scrolled .navbar-link:hover {
+  color: #ffffff !important;
+  background: rgba(154, 190, 157, 0.15);
+}
+
+:root[data-theme="dark"] .travel-navbar-shell .navbar-link.active,
+:root[data-theme="dark"] .travel-navbar-shell.is-scrolled .navbar-link.active {
+  color: #f0f7ee !important;
+  background: rgba(116, 158, 119, 0.28);
+  border-color: rgba(157, 193, 160, 0.25);
+}
+
+/* Search and profile */
+
+:root[data-theme="dark"] .travel-navbar-shell .navbar-search,
+:root[data-theme="dark"] .travel-navbar-shell .navbar-profile,
+:root[data-theme="dark"] .travel-navbar-shell .profile-chevron {
+  color: #dcebdd !important;
+}
+
+:root[data-theme="dark"] .travel-navbar-shell .navbar-search {
+  border-left-color: rgba(200, 220, 200, 0.2);
+  border-right-color: rgba(200, 220, 200, 0.2);
+}
+
+:root[data-theme="dark"] .travel-navbar-shell .profile-avatar {
+  background: #547d5c;
+  color: #ffffff;
+  border-color: rgba(220, 240, 220, 0.5);
+}
+
+/* Profile dropdown */
+
+:root[data-theme="dark"] .profile-dropdown {
+  color: #e5eee5;
+  background: rgba(27, 45, 33, 0.98);
+  border-color: #405744;
+}
+
+:root[data-theme="dark"] .profile-dropdown button {
+  color: #dcebdd;
+}
+
+:root[data-theme="dark"] .profile-dropdown button:hover {
+  background: #304b37;
+}
+
+:root[data-theme="dark"] .dropdown-divider {
+  background: #405744;
+}
+
+:root[data-theme="dark"] .profile-dropdown .dropdown-logout {
+  color: #f0aaa1;
+}
+
+:root[data-theme="dark"] .profile-dropdown .dropdown-logout:hover {
+  background: #49302c;
+}
+
+/* Mobile menu */
+
+@media (max-width: 820px) {
+  :root[data-theme="dark"] .mobile-menu-panel {
+    color: #e5eee5;
+    background: rgba(27, 45, 33, 0.98);
+    border-color: #405744;
+  }
+
+  :root[data-theme="dark"] .mobile-menu-header {
+    border-bottom-color: #405744;
+  }
+
+  :root[data-theme="dark"] .mobile-menu-brand,
+  :root[data-theme="dark"] .mobile-menu-close,
+  :root[data-theme="dark"] .mobile-menu-profile,
+  :root[data-theme="dark"] .mobile-menu-link {
+    color: #dcebdd;
+  }
+
+  :root[data-theme="dark"] .mobile-menu-link.active,
+  :root[data-theme="dark"] .mobile-menu-link:hover {
+    background: #304b37;
+  }
+
+  :root[data-theme="dark"] .mobile-menu-profile {
+    border-top-color: #405744;
+  }
+}
+
+
+/* Updated profile dropdown */
+
+.profile-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 9px 12px;
+}
+
+.profile-dropdown-user {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+}
+
+.profile-dropdown-user strong {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-dropdown-user span {
+  overflow: hidden;
+  font-size: 10px;
+  opacity: 0.7;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-dropdown-divider {
+  height: 1px;
+  margin: 5px 4px;
+  background: #e5e9e2;
+}
+
+.profile-dropdown .profile-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 10px;
+  color: #24352a;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.profile-dropdown-item svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.profile-dropdown .profile-logout {
+  color: #c52f2b;
+}
+
+:root[data-theme="dark"] .profile-dropdown-header {
+  color: #e5eee5;
+}
+
+:root[data-theme="dark"] .profile-dropdown-divider {
+  background: #405744;
+}
+
+:root[data-theme="dark"] .profile-dropdown .profile-dropdown-item {
+  color: #dcebdd;
+}
+
+:root[data-theme="dark"] .profile-dropdown .profile-logout {
+  color: #f0aaa1;
+}
+
+/* Updated mobile menu */
+
+.mobile-nav-panel {
+  display: block;
+  width: min(320px, 100%);
+  margin: 9px 0 0 auto;
+  padding: 14px;
+  color: #20372b;
+  background: rgba(255, 254, 249, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(20, 38, 27, 0.2);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.mobile-nav-panel .mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 10px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.mobile-nav-panel .mobile-nav-link:hover,
+.mobile-nav-panel .mobile-nav-link.active {
+  background: #e9eee5;
+}
+
+.mobile-nav-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mobile-nav-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 9px;
+  padding: 12px 3px 2px;
+  border-top: 1px solid #e5e9e2;
+}
+
+.mobile-nav-footer > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 3px;
+}
+
+.mobile-nav-footer strong {
+  font-size: 11px;
+}
+
+.mobile-nav-footer span:not(.profile-avatar) {
+  overflow: hidden;
+  font-size: 10px;
+  opacity: 0.7;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-nav-footer button {
+  padding: 7px;
+  color: #c52f2b;
+  background: transparent;
+  border: 0;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+:root[data-theme="dark"] .mobile-nav-panel {
+  color: #e5eee5;
+  background: rgba(27, 45, 33, 0.98);
+  border-color: #405744;
+}
+
+:root[data-theme="dark"] .mobile-nav-panel .mobile-nav-link:hover,
+:root[data-theme="dark"] .mobile-nav-panel .mobile-nav-link.active {
+  background: #304b37;
+}
+
+:root[data-theme="dark"] .mobile-nav-footer {
+  border-top-color: #405744;
+}
+
+@media (max-width: 820px) {
+  .navbar-profile-wrap {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+}
+
+/* TravelMint navbar — improve readability over scrolling content */
+.travel-navbar-shell .travel-navbar,
+.travel-navbar-shell.is-scrolled .travel-navbar {
+  background: rgba(245, 242, 233, 0.97) !important;
+  border: 1px solid rgba(23, 61, 50, 0.12);
+  box-shadow: 0 8px 28px rgba(18, 35, 25, 0.10);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}

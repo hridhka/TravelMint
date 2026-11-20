@@ -1,4 +1,5 @@
 
+/* ================= GLOBAL RESET ================= */
 
 * {
   box-sizing: border-box;
@@ -8,16 +9,56 @@
     sans-serif;
 }
 
+/* ================= LIGHT THEME ================= */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --app-bg: #f7f7f9;
+  --surface-bg: #ffffff;
+  --surface-secondary: #f3f4ef;
+  --text-primary: #222222;
+  --text-secondary: #68736b;
+  --border-color: #dedfd8;
+  --accent-color: #386d50;
+  --input-bg: #ffffff;
+}
+
+/* ================= DEEP FOREST THEME ================= */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --app-bg: #101b16;
+  --surface-bg: #192820;
+  --surface-secondary: #22372b;
+  --text-primary: #edf3eb;
+  --text-secondary: #b2c2b5;
+  --border-color: #3b5142;
+  --accent-color: #78a987;
+  --input-bg: #22372b;
+}
+
+/* ================= BODY ================= */
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
 body {
-  background-color: #f7f7f9;
-  color: #222;
+  background-color: var(--app-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button {
   padding: 8px 14px;
   border-radius: 6px;
   border: none;
-  background-color: #386d50;
+  background-color: var(--accent-color);
   color: white;
   cursor: pointer;
 }
@@ -26,9 +67,33 @@ button:hover {
   opacity: 0.9;
 }
 
-input {
+input,
+select,
+textarea {
   padding: 8px 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
   margin-bottom: 8px;
+}
+
+/* ================= COMMON THEME SUPPORT ================= */
+
+.theme-surface {
+  background-color: var(--surface-bg);
+  color: var(--text-primary);
+}
+
+.theme-secondary {
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
+}
+
+.theme-text {
+  color: var(--text-primary);
+}
+
+.theme-muted {
+  color: var(--text-secondary);
 }

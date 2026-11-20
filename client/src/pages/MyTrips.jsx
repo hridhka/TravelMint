@@ -153,9 +153,24 @@ function MyTrips() {
           </div>
 
           <div className="my-trips-hero-index">
-            <span>TRAVELMINT JOURNAL</span>
-            <strong>{String(trips.length).padStart(2, "0")}</strong>
-            <span>JOURNEYS COLLECTED</span>
+            <div className="postcard-copy">
+              <span className="postcard-title">TRAVELMINT JOURNAL</span>
+
+              <div className="postcard-count">
+                <strong>{String(trips.length).padStart(2, "0")}</strong>
+                <span>
+                  JOURNEYS
+                  <br />
+                  COLLECTED
+                </span>
+              </div>
+            </div>
+
+            <div className="postcard-postmark" aria-hidden="true">
+              <span className="postcard-flight-lines">〰 〰 〰</span>
+              <span className="postcard-plane">✈</span>
+              <span className="postcard-stamp-text">TRAVELMINT · JOURNAL</span>
+            </div>
           </div>
         </section>
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://travelmint-backend.onrender.com/api",
+  baseURL: "http://127.0.0.1:5000/api",
 });
 
 api.interceptors.request.use((config) => {

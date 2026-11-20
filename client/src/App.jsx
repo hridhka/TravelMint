@@ -4,9 +4,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import TravelMintAI from "./pages/TravelMintAI";
 import TripDetails from "./pages/TripDetails";
 import MyTrips from "./pages/MyTrips";
 import Settings from "./pages/Settings";
+import HelpSupport from "./pages/HelpSupport";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/trips" element={<MyTrips />} />
         <Route path="/trips/:id" element={<TripDetails />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/help" element={<HelpSupport />} />
+        <Route path="/ai-assistant" element={<TravelMintAI />} />
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
