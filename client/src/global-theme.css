@@ -1,0 +1,351 @@
+/* =========================================================
+   TRAVELMINT — APPLICATION-WIDE DARK THEME COMPLETION
+   Loaded after page/component styles so shared overrides win.
+   Does not alter layout, spacing, or application behavior.
+========================================================= */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Shared page surfaces */
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] #root {
+  background: var(--app-bg);
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .auth-page,
+:root[data-theme="dark"] .auth-panel {
+  --auth-green: #9bc5a3;
+  --auth-ink: #edf3eb;
+  --auth-muted: #b2c2b5;
+  --auth-paper: #101b16;
+  --auth-border: #3b5142;
+  background: var(--app-bg);
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .auth-form-content h2,
+:root[data-theme="dark"] .auth-form label {
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .auth-form input {
+  background: #22372b;
+  border-color: #3b5142;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .auth-form input::placeholder {
+  color: #9cad9f;
+}
+
+:root[data-theme="dark"] .auth-error,
+:root[data-theme="dark"] .modal-error,
+:root[data-theme="dark"] .tm-ai-error {
+  background: #402b28;
+  border-color: #704840;
+  color: #f1b2a8;
+}
+
+:root[data-theme="dark"] .auth-success {
+  background: #203b2b;
+  border-color: #45694d;
+  color: #c3e2c4;
+}
+
+/* Add Expense modal */
+:root[data-theme="dark"] .expense-modal-box {
+  --expense-ink: #edf3eb;
+  --expense-muted: #b2c2b5;
+  --expense-green: #a4cba7;
+  --expense-paper: #192820;
+  --expense-border: #3b5142;
+  background: var(--expense-paper);
+  border-color: #405745;
+  color: var(--expense-ink);
+}
+
+:root[data-theme="dark"] .expense-modal-box .expense-field label {
+  color: #dce8dc;
+}
+
+:root[data-theme="dark"] .expense-modal-box .expense-field input,
+:root[data-theme="dark"] .expense-modal-box .expense-field select {
+  background: #22372b;
+  border-color: #405745;
+  color: #edf3eb;
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] .expense-modal-box .expense-field input::placeholder {
+  color: #9cad9f;
+}
+
+:root[data-theme="dark"] .expense-modal-close {
+  border-color: #405745;
+  color: #b2c2b5;
+}
+
+:root[data-theme="dark"] .expense-modal-close:hover {
+  background: #2b4231;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .expense-modal-mark {
+  background: #2b4231;
+  border-color: #405745;
+  color: #a4cba7;
+}
+
+:root[data-theme="dark"] .expense-amount-wrap {
+  background: #22372b;
+  border-color: #405745;
+}
+
+:root[data-theme="dark"] .expense-amount-wrap > span {
+  background: #2b4231;
+  border-right-color: #405745;
+  color: #a4cba7;
+}
+
+:root[data-theme="dark"] .expense-modal-footnote {
+  color: #9eafa1;
+}
+
+/* New Trip / AI planner modal */
+:root[data-theme="dark"] .modal-card {
+  --modal-ink: #edf3eb;
+  --modal-muted: #b2c2b5;
+  --modal-green: #a4cba7;
+  --modal-paper: #192820;
+  --modal-border: #3b5142;
+  background: var(--modal-paper);
+  border-color: #405745;
+  color: var(--modal-ink);
+  scrollbar-color: #526b58 transparent;
+}
+
+:root[data-theme="dark"] .modal-toggle {
+  background: #14231a;
+  border-color: #405745;
+}
+
+:root[data-theme="dark"] .modal-toggle button {
+  color: #b2c2b5;
+}
+
+:root[data-theme="dark"] .modal-toggle button.active {
+  background: #304b37;
+  border-color: #52745a;
+  color: #edf3eb;
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .modal-card .modal-field label {
+  color: #dce8dc;
+}
+
+:root[data-theme="dark"] .modal-card input,
+:root[data-theme="dark"] .modal-card textarea {
+  background: #22372b;
+  border-color: #405745;
+  color: #edf3eb;
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] .modal-card input::placeholder,
+:root[data-theme="dark"] .modal-card textarea::placeholder {
+  color: #9cad9f;
+}
+
+:root[data-theme="dark"] .modal-card input:focus,
+:root[data-theme="dark"] .modal-card textarea:focus {
+  background: #263d2f;
+}
+
+:root[data-theme="dark"] .budget-input-wrap {
+  background: #22372b;
+  border-color: #405745;
+}
+
+:root[data-theme="dark"] .budget-input-wrap > span {
+  background: #2b4231;
+  border-right-color: #405745;
+}
+
+:root[data-theme="dark"] .ai-intro {
+  background: #22372b;
+  border-color: #405745;
+}
+
+:root[data-theme="dark"] .style-chip {
+  border-color: #405745;
+  color: #c6d5c7;
+}
+
+:root[data-theme="dark"] .style-chip:hover,
+:root[data-theme="dark"] .style-chip.selected {
+  background: #304b37;
+  border-color: #66866b;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .ai-card {
+  background: #1e3025;
+  border-color: #405745;
+}
+
+:root[data-theme="dark"] .ai-card-budget {
+  border-color: #405745;
+}
+
+:root[data-theme="dark"] .select-btn {
+  background: #2b4231;
+  border-color: #49664d;
+  color: #dcebdd;
+}
+
+:root[data-theme="dark"] .select-btn:hover,
+:root[data-theme="dark"] .select-btn.selected {
+  background: #36543d;
+  border-color: #789b7b;
+}
+
+/* TravelMint AI page */
+:root[data-theme="dark"] .tm-ai-layout {
+  --ai-green: #a4cba7;
+  --ai-dark: #edf3eb;
+  --ai-cream: #101b16;
+  --ai-muted: #a5b5a6;
+  --ai-border: rgba(145, 177, 148, 0.22);
+  background: #101b16;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .tm-ai-sidebar {
+  background: #192820;
+  border-color: #354b3b;
+}
+
+:root[data-theme="dark"] .tm-ai-new-chat {
+  border-color: #49664d;
+  color: #cfe0d0;
+}
+
+:root[data-theme="dark"] .tm-ai-new-chat:hover:not(:disabled),
+:root[data-theme="dark"] .tm-ai-history-item:hover:not(:disabled),
+:root[data-theme="dark"] .tm-ai-history-item.active {
+  background: #2b4231;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .tm-ai-history-item {
+  color: #bdcdbf;
+}
+
+:root[data-theme="dark"] .tm-ai-topbar {
+  border-color: #354b3b;
+}
+
+:root[data-theme="dark"] .tm-ai-status {
+  color: #a5b5a6;
+}
+
+:root[data-theme="dark"] .tm-ai-intro h1,
+:root[data-theme="dark"] .tm-ai-topbar h2,
+:root[data-theme="dark"] .tm-ai-message-body,
+:root[data-theme="dark"] .tm-ai-message-body h1,
+:root[data-theme="dark"] .tm-ai-message-body h2,
+:root[data-theme="dark"] .tm-ai-message-body h3,
+:root[data-theme="dark"] .tm-ai-message-body strong {
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .tm-ai-intro p {
+  color: #b2c2b5;
+}
+
+:root[data-theme="dark"] .tm-ai-message.assistant-message {
+  border-bottom-color: rgba(145, 177, 148, 0.18);
+}
+
+:root[data-theme="dark"] .tm-ai-message-label {
+  color: #a5b5a6;
+}
+
+:root[data-theme="dark"] .tm-ai-message-body th {
+  background: #263d2f;
+  color: #cfe0d0;
+}
+
+:root[data-theme="dark"] .tm-ai-message-body th,
+:root[data-theme="dark"] .tm-ai-message-body td {
+  border-bottom-color: #405745;
+}
+
+:root[data-theme="dark"] .tm-ai-message-body tr:hover {
+  background: rgba(145, 183, 151, 0.07);
+}
+
+:root[data-theme="dark"] .tm-ai-form {
+  background: linear-gradient(to bottom, rgba(16, 27, 22, 0), #101b16 18%);
+}
+
+:root[data-theme="dark"] .tm-ai-input-wrap {
+  background: #192820;
+  border-color: #405745;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .tm-ai-input-wrap:focus-within {
+  border-color: #789b7b;
+}
+
+:root[data-theme="dark"] .tm-ai-input-wrap textarea {
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .tm-ai-input-wrap textarea::placeholder {
+  color: #9cad9f;
+}
+
+:root[data-theme="dark"] .tm-ai-back-icon {
+  color: #cfe0d0;
+}
+
+/* Shared selects/options and browser controls */
+:root[data-theme="dark"] select option {
+  background: #192820;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  accent-color: #78a987;
+}
+
+/* Generic native dialogs and popovers used by pages */
+:root[data-theme="dark"] .destination-detail-modal {
+  background: #192820;
+  border-color: #405745;
+  color: #edf3eb;
+}
+
+:root[data-theme="dark"] .destination-detail-modal h1,
+:root[data-theme="dark"] .destination-detail-modal h2,
+:root[data-theme="dark"] .destination-detail-modal h3,
+:root[data-theme="dark"] .destination-detail-modal strong {
+  color: #edf3eb;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme="dark"] *,
+  :root[data-theme="dark"] *::before,
+  :root[data-theme="dark"] *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

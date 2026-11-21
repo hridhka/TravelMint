@@ -1,0 +1,118 @@
+
+/* ==========================================
+   TRAVELMINT — GLOBAL VISUAL FOUNDATION
+   Luxury Futuristic + Architectural Editorial
+========================================== */
+
+/* Page backgrounds */
+body,
+#root {
+  background: var(--app-bg);
+  color: var(--text-primary);
+}
+
+/* Premium surfaces */
+.tm-surface {
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+}
+
+.tm-glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--soft-shadow);
+}
+
+/* Editorial headings */
+.tm-heading {
+  color: var(--text-primary);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: -1.4px;
+}
+
+/* Premium buttons */
+.tm-primary-button {
+  color: var(--ivory);
+  background: var(--pine);
+  border: 1px solid var(--pine);
+  border-radius: 12px;
+  box-shadow: 0 5px 16px rgba(32, 55, 45, 0.14);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.tm-primary-button:hover {
+  background: var(--moss);
+  transform: translateY(-2px);
+  box-shadow: var(--gold-glow);
+}
+
+.tm-secondary-button {
+  color: var(--pine);
+  background: var(--surface-bg);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+}
+
+/* Gold decorative details */
+.tm-gold-accent {
+  color: var(--gold);
+}
+
+.tm-gold-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+/* Inputs */
+.tm-input {
+  color: var(--text-primary);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 11px;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.tm-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(146, 116, 58, 0.10);
+}
+
+/* Smooth theme transition */
+body,
+#root,
+.tm-surface,
+.tm-glass {
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+/* Dark theme adjustments */
+:root[data-theme="dark"] .tm-primary-button {
+  color: var(--pine);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+:root[data-theme="dark"] .tm-primary-button:hover {
+  background: #D0B675;
+}
+
+:root[data-theme="dark"] .tm-secondary-button {
+  color: var(--text-primary);
+  background: var(--surface-secondary);
+  border-color: var(--gold);
+}

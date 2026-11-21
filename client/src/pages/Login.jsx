@@ -41,12 +41,27 @@ try {
 
 navigate("/dashboard", { replace: true });
     } catch (err) {
-      console.error("LOGIN ERROR:", err);
+      console.error("LOGIN ERROR:", {
+        message: err.message,
+        status: err.response?.status,
+        response: err.response?.data,
+        url: err.config?.url,
+      });
 
-      setError(
-        err.response?.data?.message ||
-          "Unable to log in. Please check your details and try again."
-      );
+      if (!err.response) {
+        setError("Cannot connect to the server. Please try again later.");
+      } else if (err.response.status === 401) {
+        setError("Incorrect email or password. Please check your details.");
+      } else if (err.response.status === 404) {
+        setError("Login service not found. Please contact support.");
+      } else if (err.response.status >= 500) {
+        setError("Something went wrong on our server. Please try again.");
+      } else {
+        setError(
+          err.response.data?.message ||
+            "Unable to log in. Please check your details and try again."
+        );
+      }
     } finally {
       setLoading(false);
     }

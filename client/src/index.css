@@ -1,46 +1,108 @@
 
-/* ================= GLOBAL RESET ================= */
+/* ==========================================
+   TRAVELMINT — LUXURY FUTURISTIC DESIGN
+========================================== */
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-/* ================= LIGHT THEME ================= */
+/* LIGHT THEME */
 
 :root,
-[data-theme="light"] {
+:root[data-theme="light"] {
   color-scheme: light;
 
-  --app-bg: #f7f7f9;
-  --surface-bg: #ffffff;
-  --surface-secondary: #f3f4ef;
-  --text-primary: #222222;
-  --text-secondary: #68736b;
-  --border-color: #dedfd8;
-  --accent-color: #386d50;
-  --input-bg: #ffffff;
+  --pine: #20372D;
+  --moss: #34543C;
+  --ivory: #F1F0E9;
+  --ochre: #92743A;
+  --taupe: #A99580;
+
+  --app-bg: #F1F0E9;
+  --surface-bg: #F8F7F1;
+  --surface-secondary: #E9E7DE;
+  --surface-elevated: #FDFCF8;
+
+  --text-primary: #20372D;
+  --text-secondary: #706F63;
+  --text-muted: #A99580;
+
+  --accent-color: #34543C;
+  --accent-hover: #20372D;
+  --accent-soft: #E4E9DF;
+
+  --border-color: rgba(32, 55, 45, 0.13);
+  --input-bg: #FDFCF8;
+  --input-border: #D8D5C9;
+
+  --gold: #92743A;
+  --success-color: #55765A;
+  --danger-color: #A65D50;
+
+  --glass-bg: rgba(248, 247, 241, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.82);
+
+  --card-shadow:
+    0 14px 38px rgba(32, 55, 45, 0.075);
+
+  --soft-shadow:
+    0 6px 20px rgba(32, 55, 45, 0.055);
+
+  --gold-glow:
+    0 0 24px rgba(146, 116, 58, 0.12);
+
+  --radius-sm: 9px;
+  --radius-md: 15px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+
+  --transition: 220ms ease;
 }
 
-/* ================= DEEP FOREST THEME ================= */
+/* DARK THEME */
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   color-scheme: dark;
 
-  --app-bg: #101b16;
-  --surface-bg: #192820;
-  --surface-secondary: #22372b;
-  --text-primary: #edf3eb;
-  --text-secondary: #b2c2b5;
-  --border-color: #3b5142;
-  --accent-color: #78a987;
-  --input-bg: #22372b;
+  --app-bg: #17251E;
+  --surface-bg: #20372D;
+  --surface-secondary: #2B4435;
+  --surface-elevated: #294133;
+
+  --text-primary: #F1F0E9;
+  --text-secondary: #C3BDAE;
+  --text-muted: #A99580;
+
+  --accent-color: #A5B69A;
+  --accent-hover: #C1CDB5;
+  --accent-soft: #344C3A;
+
+  --border-color: rgba(241, 240, 233, 0.13);
+  --input-bg: #263D31;
+  --input-border: #4A6050;
+
+  --gold: #C5A35B;
+  --success-color: #A5C49B;
+  --danger-color: #D38C7D;
+
+  --glass-bg: rgba(32, 55, 45, 0.86);
+  --glass-border: rgba(241, 240, 233, 0.10);
+
+  --card-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.20);
+
+  --soft-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.15);
+
+  --gold-glow:
+    0 0 24px rgba(197, 163, 91, 0.10);
 }
 
-/* ================= BODY ================= */
+/* BASE */
 
 html,
 body,
@@ -48,52 +110,60 @@ body,
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+  background: var(--app-bg);
+}
+
 body {
-  background-color: var(--app-bg);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: var(--app-bg);
+  transition:
+    color var(--transition),
+    background var(--transition);
 }
 
-button {
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
-  background-color: var(--accent-color);
-  color: white;
-  cursor: pointer;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
-button:hover {
-  opacity: 0.9;
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 input,
 select,
 textarea {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  background-color: var(--input-bg);
   color: var(--text-primary);
-  margin-bottom: 8px;
+  background: var(--input-bg);
+  border-color: var(--input-border);
 }
 
-/* ================= COMMON THEME SUPPORT ================= */
-
-.theme-surface {
-  background-color: var(--surface-bg);
-  color: var(--text-primary);
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
 }
 
-.theme-secondary {
-  background-color: var(--surface-secondary);
-  color: var(--text-primary);
+::selection {
+  background: var(--moss);
+  color: var(--ivory);
 }
 
-.theme-text {
-  color: var(--text-primary);
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
-.theme-muted {
-  color: var(--text-secondary);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
